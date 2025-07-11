@@ -2,15 +2,23 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  // Добавляем манифест с URL
+  // Удален манифест с URL для локальной разработки
   manifest: {
-    start_url: "https://ssr-gamma-seven.vercel.app/",
   },
 });
 
 export default withPWA({
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      if (!config.optimization) {
+        config.optimization = {};
+      }
+      if (!config.optimization.splitChunks) {
+        config.optimization.splitChunks = {};
+      }
+      if (!config.optimization.splitChunks.cacheGroups) {
+        config.optimization.splitChunks.cacheGroups = {};
+      }
       config.optimization.splitChunks.cacheGroups.commons = {
         test: /[\\/]node_modules[\\/]/,
         name: 'vendor',
@@ -20,7 +28,7 @@ export default withPWA({
     return config;
   },
   images: {
-    domains: ['ssr-gamma-seven.vercel.app'],
+    domains: [],
   },
   // Удален блок routes
 });

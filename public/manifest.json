@@ -4,7 +4,7 @@
   "id": "/",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
-  "start_url": "https://ssr-gamma-seven.vercel.app/",
+  "start_url": "/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "portrait",
@@ -16,7 +16,7 @@
   "iarc_rating_id": "ru",
   "developer": {
     "name": "Loginov",
-    "url": "https://ssr-gamma-seven.vercel.app/"
+    "url": "/"
   },
   "license": "MIT",
   "version": "1.0.0",
