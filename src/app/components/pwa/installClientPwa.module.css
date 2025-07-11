@@ -1,0 +1,105 @@
+.clientPwa {
+  grid-area: 2/20/3/28;
+ display: grid;
+  grid-template-columns: repeat(48, 1fr);
+  grid-template-rows: repeat(48, 1fr);
+  z-index: 10;
+}
+
+.installContainer {
+  grid-area: 1/1/49/49;
+  display: grid;
+  grid-template-columns: repeat(48, 1fr);
+  grid-template-rows: repeat(48, 1fr);
+  /* height: 100vh; */
+  background-color: #e6f3ff;
+  padding: 4px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.installButton {
+  grid-area: 1/1/49/42;
+  background-color: #2e7d32; /* более темный зеленый для лучшего контраста */
+  color: #e0e0e0; /* светло-серый текст для лучшего контраста */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 4px;
+}
+
+.installButton:hover {
+  background-color: #1b5e20; /* более темный оттенок при наведении */
+}
+
+.closeButton {
+  grid-area: 1/42/49/49;
+  font-size: 18px;
+  cursor: pointer;
+  color: #f00909;
+}
+
+.closeButton:hover {
+  color: #c31d1d;
+}
+
+.installButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 0.5);
+}
+
+.installContainer:focus-within {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 0.5);
+}
+
+
+@media(1368px <=width <= 1920px) {
+.clientPwa {
+  grid-area:2/20/3/28;
+  z-index: 9999;
+}
+
+}
+
+@media(1024px <=width <= 1199px) {
+.clientPwa {
+  grid-area: 2/21/3/30;
+  z-index: 9999;
+}
+
+}
+
+@media(800px <=width <= 1023px) {
+.clientPwa {
+  grid-area: 2/20/3/31;
+  z-index: 9999;
+
+}
+}
+
+@media(680px <=width <= 799px) {
+.clientPwa {
+  grid-area: 2/19/3/32;
+  z-index: 9999;
+  }
+}
+
+@media(500px <=width <= 679px) {
+.clientPwa {
+  grid-area: 2/18/3/33;
+  z-index: 9999;
+  }
+
+}
+@media(420px <=width <= 499px) {
+.clientPwa {
+  grid-area: 2/17/3/34;
+  z-index: 9999;
+  }
+}
+
+@media(280px <=width <= 419px) {
+  .clientPwa {
+  grid-area: 2/16/3/35;
+  z-index: 9999;
+}
+}

@@ -1,0 +1,49 @@
+.container {
+  grid-area: 8/4/18/18;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.inputNickname,
+.inputPassword {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.link {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: #0070f3;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-left: 0;
+}
+
+.link:hover,
+.link:focus,
+.link:active {
+  text-decoration: underline;
+}

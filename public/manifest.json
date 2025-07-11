@@ -1,0 +1,346 @@
+{
+  "name": "QR_zone",
+  "short_name": "QR_zone",
+  "id": "/",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "https://ssr-gamma-seven.vercel.app/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "portrait",
+  "description": "Приложение дополненной реальности.",
+  "prefer_related_applications": false,
+  "categories": ["productivity", "utilities"],
+  "lang": "ru",
+  "dir": "ltr",
+  "iarc_rating_id": "ru",
+  "developer": {
+    "name": "Loginov",
+    "url": "https://ssr-gamma-seven.vercel.app/"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "offline_enabled": true,
+  "permissions": [
+    "geolocation",
+    "notifications"
+  ],
+  "shortcuts": [
+    {
+      "name": "Открыть расписание",
+      "url": "/",
+      "icons": [{ "src": "imgpwa/android/android-launchericon-96-96.png", "sizes": "96x96" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/imgpwa/screenshots/wide_screenshot_4.png",
+      "type": "image/png",
+      "platform": "wide",
+      "sizes": "2560x1600",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/imgpwa/screenshots/wide_screenshot_1.png",
+      "type": "image/png",
+      "platform": "wide",
+      "sizes": "800x500",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/imgpwa/screenshots/wide_screenshot_3.png",
+      "type": "image/png",
+      "platform": "wide",
+      "sizes": "1920x1200",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/imgpwa/screenshots/wide_screenshot_2.png",
+      "type": "image/png",
+      "platform": "wide",
+      "sizes": "1200x750",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/imgpwa/screenshots/mobile_screenshot_1.png",
+      "type": "image/png",
+      "sizes": "800x500"
+    }
+  ],
+  "icons": [
+    {
+      "src": "imgpwa/maskable_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "imgpwa/windows11/SmallTile.scale-100.png",
+      "sizes": "71x71"
+    },
+    {
+      "src": "imgpwa/windows11/SmallTile.scale-125.png",
+      "sizes": "89x89"
+    },
+    {
+      "src": "imgpwa/windows11/SmallTile.scale-150.png",
+      "sizes": "107x107"
+    },
+    {
+      "src": "imgpwa/windows11/SmallTile.scale-200.png",
+      "sizes": "142x142"
+    },
+    {
+      "src": "imgpwa/windows11/SmallTile.scale-400.png",
+      "sizes": "284x284"
+    },
+    {
+      "src": "imgpwa/windows11/Square150x150Logo.scale-100.png",
+      "sizes": "150x150"
+    },
+    {
+      "src": "imgpwa/windows11/Square150x150Logo.scale-125.png",
+      "sizes": "188x188"
+    },
+    {
+      "src": "imgpwa/windows11/Square150x150Logo.scale-150.png",
+      "sizes": "225x225"
+    },
+    {
+      "src": "imgpwa/windows11/Square150x150Logo.scale-200.png",
+      "sizes": "300x300"
+    },
+    {
+      "src": "imgpwa/windows11/Square150x150Logo.scale-400.png",
+      "sizes": "600x600"
+    },
+    {
+      "src": "imgpwa/windows11/Wide310x150Logo.scale-100.png",
+      "sizes": "310x150"
+    },
+    {
+      "src": "imgpwa/windows11/Wide310x150Logo.scale-125.png",
+      "sizes": "388x188"
+    },
+    {
+      "src": "imgpwa/windows11/Wide310x150Logo.scale-150.png",
+      "sizes": "465x225"
+    },
+    {
+      "src": "imgpwa/windows11/Wide310x150Logo.scale-200.png",
+      "sizes": "620x300"
+    },
+    {
+      "src": "imgpwa/windows11/Wide310x150Logo.scale-400.png",
+      "sizes": "1240x600"
+    },
+    {
+      "src": "imgpwa/windows11/LargeTile.scale-100.png",
+      "sizes": "310x310"
+    },
+    {
+      "src": "imgpwa/windows11/LargeTile.scale-125.png",
+      "sizes": "388x388"
+    },
+    {
+      "src": "imgpwa/windows11/LargeTile.scale-150.png",
+      "sizes": "465x465"
+    },
+    {
+      "src": "imgpwa/windows11/LargeTile.scale-200.png",
+      "sizes": "620x620"
+    },
+    {
+      "src": "imgpwa/windows11/LargeTile.scale-400.png",
+      "sizes": "1240x1240"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-16.png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-20.png",
+      "sizes": "20x20"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-24.png",
+      "sizes": "24x24"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-30.png",
+      "sizes": "30x30"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-32.png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-36.png",
+      "sizes": "36x36"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-40.png",
+      "sizes": "40x40"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-44.png",
+      "sizes": "44x44"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-60.png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-64.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-80.png",
+      "sizes": "80x80"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "imgpwa/windows11/Square44x44Logo.altform-lightunplated_targetsize-256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "imgpwa/android/android-launchericon-512-512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "imgpwa/android/android-launchericon-192-192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "imgpwa/android/android-launchericon-144-144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "imgpwa/android/android-launchericon-96-96.png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "imgpwa/android/android-launchericon-72-72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "imgpwa/android/android-launchericon-48-48.png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "imgpwa/ios/16.png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "imgpwa/ios/20.png",
+      "sizes": "20x20"
+    },
+    {
+      "src": "imgpwa/ios/29.png",
+      "sizes": "29x29"
+    },
+    {
+      "src": "imgpwa/ios/32.png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "imgpwa/ios/40.png",
+      "sizes": "40x40"
+    },
+    {
+      "src": "imgpwa/ios/50.png",
+      "sizes": "50x50"
+    },
+    {
+      "src": "imgpwa/ios/57.png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "imgpwa/ios/58.png",
+      "sizes": "58x58"
+    },
+    {
+      "src": "imgpwa/ios/60.png",
+      "sizes": "60x60"
+    },
+    {
+      "src": "imgpwa/ios/64.png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "imgpwa/ios/72.png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "imgpwa/ios/76.png",
+      "sizes": "76x76"
+    },
+    {
+      "src": "imgpwa/ios/80.png",
+      "sizes": "80x80"
+    },
+    {
+      "src": "imgpwa/ios/87.png",
+      "sizes": "87x87"
+    },
+    {
+      "src": "imgpwa/ios/100.png",
+      "sizes": "100x100"
+    },
+    {
+      "src": "imgpwa/ios/114.png",
+      "sizes": "114x114"
+    },
+    {
+      "src": "imgpwa/ios/120.png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "imgpwa/ios/128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "imgpwa/ios/144.png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "imgpwa/ios/152.png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "imgpwa/ios/167.png",
+      "sizes": "167x167"
+    },
+    {
+      "src": "imgpwa/ios/180.png",
+      "sizes": "180x180"
+    },
+    {
+      "src": "imgpwa/ios/192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "imgpwa/ios/256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "imgpwa/ios/512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "imgpwa/ios/1024.png",
+      "sizes": "1024x1024"
+    }
+  ]
+}
