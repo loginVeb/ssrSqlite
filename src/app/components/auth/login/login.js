@@ -1,21 +1,20 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { readFileSync } from "fs";
-import path from "path";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import styles from "./login.module.css";
+import prisma from "@/lib/prismaClient";
 
-const dbPath = path.resolve("./src/server/db.json");
 const SECRET_KEY = process.env.SECRET_KEY; // В реальном проекте хранить в env
 
 async function login(formData) {
   "use server";
   const { nickname, password } = Object.fromEntries(formData);
 
-  const db = JSON.parse(readFileSync(dbPath, "utf-8"));
-  const user = db.users.find((u) => u.nickname === nickname);
+  const user = await prisma.user.findUnique({
+    where: { nickname },
+  });
 
   if (!user) {
     redirect("/?error=not_found");
@@ -27,10 +26,6 @@ async function login(formData) {
     redirect("/?error=not_found");
   }
 
-//   Вы можете изменить значение expiresIn на любое другое, например:
-// "30m" — 30 минут
-// "2h" — 2 часа
-// "1d" — 1 день
   const token = jwt.sign({ id: user.id, nickname: user.nickname }, SECRET_KEY, {
     expiresIn: "1h",
   });
