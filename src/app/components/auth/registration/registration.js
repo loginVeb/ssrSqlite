@@ -3,9 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { PrismaClient } from "@/generated/prisma";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prismaClient";
 
 const SECRET_KEY = process.env.SECRET_KEY; // В реальном проекте хранить в env
 
