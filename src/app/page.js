@@ -17,7 +17,8 @@ export default async function Home({ searchParams }) {
   );
 }
 
-// привет меня зовут Павел разговаривать будем на русском а пока изучи проект потом дам задание 
+// привет меня зовут Павел общаться в чате будем на русском а пока изучи проект потом дам задание 
+//сам срузу нечего не делай предлгай план или команды для bash терминала
 // contr+shift+p settings настройки
 // shift+alt+t перевод выделеной строки на русский
 //contr+1 скриншот
@@ -45,7 +46,7 @@ export default async function Home({ searchParams }) {
 
 // git switch -
 // git merge ref 
-
+// rm -rf node_modules package-lock.json
 //Создать новую ветку и автоматически слить текущую ветку
 // git switch --create <name>
 //Удолить локальную ветку

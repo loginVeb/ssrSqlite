@@ -1,13 +1,13 @@
 import styles from "./registration.module.css";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { readFileSync, writeFileSync } from "fs";
-import path from "path";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { PrismaClient } from "@/generated/prisma";
 
-const SECRET_KEY = "your_secret_key"; // В реальном проекте хранить в env
-const dbPath = path.resolve("./src/server/db.json");
+const prisma = new PrismaClient();
+
+const SECRET_KEY = process.env.SECRET_KEY; // В реальном проекте хранить в env
 
 async function registerUser(formData) {
   "use server";
@@ -17,8 +17,9 @@ async function registerUser(formData) {
     redirect("/?mode=registration&error=password_mismatch");
   }
 
-  const db = JSON.parse(readFileSync(dbPath, "utf-8"));
-  const existingUser = db.users.find((u) => u.nickname === nickname);
+  const existingUser = await prisma.user.findUnique({
+    where: { nickname },
+  });
 
   if (existingUser) {
     redirect("/?mode=registration&error=nickname_exists");
@@ -26,14 +27,12 @@ async function registerUser(formData) {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = {
-    id: Date.now().toString(),
-    nickname,
-    password: hashedPassword,
-  };
-
-  db.users.push(newUser);
-  writeFileSync(dbPath, JSON.stringify(db, null, 2));
+  const newUser = await prisma.user.create({
+    data: {
+      nickname,
+      password: hashedPassword,
+    },
+  });
 
   const token = jwt.sign({ id: newUser.id, nickname: newUser.nickname }, SECRET_KEY, {
     expiresIn: "1h",
@@ -85,10 +84,10 @@ export default async function Registration({ searchParams }) {
             <button type="submit" className={styles.button}>
               Зарегистрироваться
             </button>
-          <Link href="/?mode=login" className={styles.link}>
-            Вход
-          </Link>
-        </form>
+            <Link href="/?mode=login" className={styles.link}>
+              Вход
+            </Link>
+          </form>
         </>
       )}
     </div>
