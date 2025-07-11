@@ -35,6 +35,7 @@ export default async function Home({ searchParams }) {
 // vercel --prod
 // git log
 // git stash
+// git reset --hard
 // git checkout commitProject
 // git branch 
 // git push -f origin HEAD~1:main

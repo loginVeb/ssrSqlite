@@ -2,6 +2,9 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
+  workboxOptions: {
+    mode: 'production',
+  },
   // Удален манифест с URL для локальной разработки
   manifest: {
   },
