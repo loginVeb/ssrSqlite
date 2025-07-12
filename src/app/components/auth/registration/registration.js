@@ -2,6 +2,7 @@ import styles from "./registration.module.css";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import prisma from "@/lib/prismaClient";
 
@@ -34,6 +35,13 @@ async function registerUser(formData) {
 
   const token = jwt.sign({ id: newUser.id, nickname: newUser.nickname }, SECRET_KEY, {
     expiresIn: "1h",
+  });
+
+  cookies().set({
+    name: "token",
+    value: token,
+    httpOnly: true,
+    path: "/",
   });
 
   redirect("/user");
