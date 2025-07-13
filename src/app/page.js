@@ -55,6 +55,7 @@ export default async function Home({ searchParams }) {
  //git push origin --delete nameBranch
  
 // npx prisma
+// npx prisma studio
 // npx prisma init
 // npx prisma db pull
 // mkdir -p prisma/migrations/0_init

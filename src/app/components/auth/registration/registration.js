@@ -10,49 +10,41 @@ const SECRET_KEY = process.env.SECRET_KEY; // В реальном проекте
 
 async function registerUser(formData) {
   "use server";
-  try {
-    const { nickname, password, confirmPassword } = Object.fromEntries(formData);
+  const { nickname, password, confirmPassword } = Object.fromEntries(formData);
 
-    if (password !== confirmPassword) {
-      redirect("/?mode=registration&error=password_mismatch");
-    }
-
-    const existingUser = await prisma.user.findUnique({
-      where: { nickname },
-    });
-
-    if (existingUser) {
-      redirect("/?mode=registration&error=nickname_exists");
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = await prisma.user.create({
-      data: {
-        nickname,
-        password: hashedPassword,
-      },
-    });
-
-    const token = jwt.sign({ id: newUser.id, nickname: newUser.nickname }, SECRET_KEY, {
-      expiresIn: "1h",
-    });
-
-    cookies().set({
-      name: "token",
-      value: token,
-      httpOnly: true,
-      path: "/",
-    });
-
-    redirect("/user");
-  } catch (error) {
-    console.error("Ошибка в registerUser:", error);
-    if (error instanceof Error) {
-      console.error(error.stack);
-    }
-    redirect("/?mode=registration&error=server_error");
+  if (password !== confirmPassword) {
+    redirect("/?mode=registration&error=password_mismatch");
   }
+
+  const existingUser = await prisma.user.findUnique({
+    where: { nickname },
+  });
+
+  if (existingUser) {
+    redirect("/?mode=registration&error=nickname_exists");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = await prisma.user.create({
+    data: {
+      nickname,
+      password: hashedPassword,
+    },
+  });
+
+  const token = jwt.sign({ id: newUser.id, nickname: newUser.nickname }, SECRET_KEY, {
+    expiresIn: "1h",
+  });
+
+  cookies().set({
+    name: "token",
+    value: token,
+    httpOnly: true,
+    path: "/",
+  });
+
+  redirect("/user");
 }
 
 export default async function Registration({ searchParams }) {
@@ -70,9 +62,6 @@ export default async function Registration({ searchParams }) {
             )}
             {error === "nickname_exists" && (
               <div className={styles.errorMessage}>Такой ник уже есть</div>
-            )}
-            {error === "server_error" && (
-              <div className={styles.errorMessage}>Ошибка сервера. Попробуйте позже.</div>
             )}
             <input
               type="text"
