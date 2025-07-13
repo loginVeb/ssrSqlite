@@ -24,6 +24,8 @@ export default async function Home({ searchParams }) {
 //contr+1 скриншот
 // OneDrive/'Рабочий стол'/
 
+
+// bash deploy_ssrSqlite.sh
 // npm run dev
 // npm run s
 // ./deploy.sh
@@ -36,6 +38,7 @@ export default async function Home({ searchParams }) {
 // vercel --prod
 // git log
 // git stash
+// git status
 // git reset --hard
 // git checkout commitProject
 // git branch 
