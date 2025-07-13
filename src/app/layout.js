@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="manifest" href="/manifest.json" preload="true" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicomatic/favicon.ico" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-title" content={manifest.short_name} />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
