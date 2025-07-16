@@ -41,6 +41,19 @@ padding: 8px 10px;
   color: #fff;
 }
 
+.inputNickname:placeholder-shown,
+.inputPassword:placeholder-shown {
+background-color: #2d2c2c;
+}
+
+.inputNickname:-webkit-autofill,
+.inputPassword:-webkit-autofill {
+background-color: #2d2c2c !important;
+-webkit-box-shadow: 0 0 0px 1000px #2d2c2c inset !important;
+-webkit-text-fill-color: #fff !important;
+}
+
+
 .button {
  padding: 10px;
   font-size: 16px;
@@ -70,15 +83,52 @@ padding: 8px 10px;
 .link {
  margin-top: 10px;
   cursor: pointer;
-  color: #fff;
+  color: #0099ff; /* неоновый синий */
   text-align: center;
   justify-self: center;
   align-self: center;
   text-decoration: none;
+  text-shadow: 0 0 8px #0099ff;
+  transition: color 0.3s ease;
 }
 
 .link:hover,
 .link:focus,
 .link:active {
   text-decoration: underline;
+  color: #66ccff;
+  text-shadow: 0 0 12px #66ccff;
+}
+
+
+@media(1368px <=width <= 1920px) {
+
+
+}
+
+@media(1024px <=width <= 1199px) {
+
+
+}
+
+@media(800px <=width <= 1023px) {
+
+
+}
+
+@media(680px <=width <= 799px) {
+
+
+}
+
+@media(500px <=width <= 679px) {
+
+
+}
+@media(420px <=width <= 499px) {
+
+}
+
+@media(280px <=width <= 419px) {
+  
 }
