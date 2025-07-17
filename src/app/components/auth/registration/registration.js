@@ -84,7 +84,7 @@ export default async function Registration({ searchParams }) {
               required
               name="confirmPassword"
               autoComplete="new-password"
-              className={styles.inputPassword}
+              className={styles.inputPassword2}
             />
             <button type="submit" className={styles.button}>
               Зарегистрироваться
