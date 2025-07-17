@@ -67,3 +67,9 @@ export default async function Home({ searchParams }) {
 
 // DATABASE_URL="mysql://auth_headingair:f585811040d0fb4be63060299bf6db5c4b37fb1d@z8z.h.filess.io:3306/auth_headingair"
 // # DATABASE_URL="mysql://root:root@localhost:3306/auth"
+
+
+// ты хорошо изуил рассказал про проект молодец  и ещё запомни в маём проекте нет api и клиентских компонентов я стараюсь их избегать на сколько
+//  это возможно обойтись без них дя решения задачи  так и ты предлгай в своих рекомендациях и планах в место 
+//  api route -server актион  не каких хуков и use client если не знаешь здаёшься как быть пиши что ты незнаешь 
+//  и что по твоему это без  api route use client

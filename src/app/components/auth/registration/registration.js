@@ -68,7 +68,7 @@ export default async function Registration({ searchParams }) {
               placeholder="nickname"
               required
               name="nickname"
-              autoComplete="username"
+               autoComplete="username"
               className={styles.inputNickname}
             />
             <input
@@ -76,7 +76,7 @@ export default async function Registration({ searchParams }) {
               placeholder="password"
               required
               name="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               className={styles.inputPassword}
             />
             <input
@@ -84,7 +84,7 @@ export default async function Registration({ searchParams }) {
               placeholder="confirm password"
               required
               name="confirmPassword"
-              autoComplete="current-password"
+              autoComplete="new-password"
               className={styles.inputPassword}
             />
             <button type="submit" className={styles.button}>

@@ -46,7 +46,7 @@ export default async function Login({ searchParams }) {
 
   return (
     <div className={styles.container}>
-      <form action={login} className={styles.form}>
+      <form action={login} className={styles.form} autoComplete="off">
         {error === "not_found" && (
           <div className={styles.errorMessage}>Таких данных нет</div>
         )}
@@ -63,7 +63,7 @@ export default async function Login({ searchParams }) {
           placeholder="password"
           required
           name="password"
-          autoComplete="current-password"
+          autoComplete="new-password"
           className={styles.inputPassword}
         />
         <button type="submit" className={styles.button}>
