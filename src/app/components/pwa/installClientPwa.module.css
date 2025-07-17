@@ -1,6 +1,6 @@
 .clientPwa {
-  grid-area: 2/23/3/28;
- display: grid;
+   grid-area: 2/21/3/29;
+  display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
   z-index: 1;
@@ -51,55 +51,43 @@
   box-shadow: 0 0 5px rgba(81, 203, 238, 0.5);
 }
 
-
-@media(1368px <=width <= 1920px) {
-.clientPwa {
-grid-area: 2/22/3/29;
-  z-index: 1;
-}
-
-}
-
-@media(1024px <=width <= 1199px) {
-.clientPwa {
-  grid-area: 2/21/3/30;
-  z-index: 1;
-}
-
-}
-
-@media(800px <=width <= 1023px) {
-.clientPwa {
- grid-area: 2/21/3/30;
-  z-index: 1;
-
-}
-}
-
-@media(680px <=width <= 799px) {
-.clientPwa {
-grid-area: 2/21/3/30;
-  z-index: 1;
-  }
-}
-
-@media(500px <=width <= 679px) {
-.clientPwa {
-  grid-area: 2/21/3/30;
-  z-index: 1;
-  }
-
-}
-@media(420px <=width <= 499px) {
-.clientPwa {
-grid-area: 2/21/3/30;
-  z-index: 1;
-  }
-}
-
-@media(280px <=width <= 419px) {
+@media (1368px <=width <= 1920px) {
   .clientPwa {
- grid-area: 2/21/3/30;
-  z-index: 1;
+    grid-area: 2/21/3/29;
+  }
 }
+
+@media (1024px <=width <= 1199px) {
+  .clientPwa {
+    grid-area: 2/20/3/30;
+  }
+}
+
+@media (800px <=width <= 1023px) {
+  .clientPwa {
+    grid-area: 2/19/3/31;
+  }
+}
+
+@media (680px <=width <= 799px) {
+  .clientPwa {
+    grid-area: 2/18/3/32;
+  }
+}
+
+@media (500px <=width <= 679px) {
+  .clientPwa {
+    grid-area: 2/17/3/33;
+  }
+}
+@media (420px <=width <= 499px) {
+  .clientPwa {
+    grid-area: 2/16/3/34;
+  }
+}
+
+@media (280px <=width <= 419px) {
+  .clientPwa {
+     grid-area: 2/16/3/34;
+  }
 }

@@ -1,11 +1,9 @@
-
-
 .form {
   grid-area: 18 / 21 / 30 / 30;
- display: grid;
+  display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
-
+  font-size: 16px;
   padding: 10px;
   border-right: solid 0.5px rgb(30, 255, 0);
   border-bottom: solid 0.5px rgb(30, 255, 0);
@@ -17,19 +15,19 @@
   font-weight: bold;
   grid-area: 1 / 3 / 2 / 47;
 }
-.inputNickname{
+.inputNickname {
   grid-area: 4 / 3 / 12 / 47;
   font-size: 16px;
   border: none;
   border-radius: 4px;
   outline: none;
   transition: border-color 0.3s ease;
- background-color: rgba(45, 44, 44, 0.5);
+  background-color: rgba(45, 44, 44, 0.5);
   color: #fff;
 }
 
 .inputPassword {
-grid-area: 15 / 3 / 23 / 47;
+  grid-area: 15 / 3 / 23 / 47;
   font-size: 16px;
   border: none;
   border-radius: 4px;
@@ -41,19 +39,18 @@ grid-area: 15 / 3 / 23 / 47;
 
 .inputNickname:placeholder-shown,
 .inputPassword:placeholder-shown {
-background-color: rgba(45, 44, 44, 0.5);
+  background-color: rgba(45, 44, 44, 0.5);
 }
 
 .inputNickname:-webkit-autofill,
 .inputPassword:-webkit-autofill {
- background-color: rgba(45, 44, 44, 0.5) !important;
- -webkit-box-shadow: 0 0 0px 1000px rgba(45, 44, 44, 0.5) inset !important;
--webkit-text-fill-color: #fff !important;
+  background-color: rgba(45, 44, 44, 0.5) !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(45, 44, 44, 0.5) inset !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
-
 .button {
- grid-area: 26 / 3 / 34 / 47;
+  grid-area: 26 / 3 / 34 / 47;
   font-size: 16px;
   font-weight: 600;
   color: white;
@@ -72,10 +69,8 @@ background-color: rgba(45, 44, 44, 0.5);
   background-color: #ccc;
 }
 
-
-
 .link {
- grid-area: 40 / 3 / 44 / 47;
+  grid-area: 40 / 3 / 44 / 47;
   cursor: pointer;
   color: #0099ff; /* неоновый синий */
   text-align: center;
@@ -84,6 +79,7 @@ background-color: rgba(45, 44, 44, 0.5);
   text-decoration: none;
   text-shadow: 0 0 8px #0099ff;
   transition: color 0.3s ease;
+  font-size: 16px;
 }
 
 .link:hover,
@@ -94,35 +90,75 @@ background-color: rgba(45, 44, 44, 0.5);
   text-shadow: 0 0 12px #66ccff;
 }
 
-
-@media(1368px <=width <= 1920px) {
-
-
+@media (1368px <=width <= 1920px) {
+  .form {
+    grid-area: 18 / 21 / 30 / 29;
+    padding: 10px;
+  }
 }
 
-@media(1024px <=width <= 1199px) {
-
-
+@media (1024px <=width <= 1199px) {
+  .form {
+    grid-area: 18 / 20 / 30 / 30;
+    padding: 10px;
+  }
 }
 
-@media(800px <=width <= 1023px) {
-
-
+@media (800px <=width <= 1023px) {
+  .form {
+    grid-area: 18 / 19 / 30 / 31;
+    padding: 10px;
+  }
 }
 
-@media(680px <=width <= 799px) {
-
-
+@media (680px <=width <= 799px) {
+  .form {
+    grid-area: 18 / 18 / 30 / 32;
+    padding: 10px;
+  }
 }
 
-@media(500px <=width <= 679px) {
-
-
+@media (500px <=width <= 679px) {
+  .form {
+    grid-area: 18 / 17 / 30 / 33;
+    padding: 10px;
+  }
 }
-@media(420px <=width <= 499px) {
+@media (420px <=width <= 499px) {
+  .form {
+    grid-area: 17 / 13 / 32 / 37;
+    padding: 10px;
+  }
 
+  .inputNickname {
+    font-size: 14px;
+  }
+  .inputPassword {
+    font-size: 14px;
+  }
+  .inputPassword2 {
+    font-size: 14px;
+  }
+  .button {
+    font-size: 14px;
+  }
 }
 
-@media(280px <=width <= 419px) {
-  
+@media (280px <=width <= 419px) {
+   .form {
+    grid-area: 17 / 10 / 32 / 40;
+    padding: 10px;
+  }
+  .inputNickname {
+    font-size: 14px;
+  }
+  .inputPassword {
+    font-size: 14px;
+  }
+  .inputPassword2 {
+    font-size: 14px;
+  }
+  .button {
+    font-size: 14px;
+  }
 }
