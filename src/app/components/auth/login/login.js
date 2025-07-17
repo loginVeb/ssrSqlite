@@ -45,8 +45,7 @@ export default async function Login({ searchParams }) {
   const error = params?.error;
 
   return (
-    <div className={styles.container}>
-      <form action={login} className={styles.form} autoComplete="off">
+      <form action={login} className={`${styles.form} ${styles.container}`} autoComplete="off">
         {error === "not_found" && (
           <div className={styles.errorMessage}>Таких данных нет</div>
         )}
@@ -73,6 +72,5 @@ export default async function Login({ searchParams }) {
           Регистрация
         </Link>
       </form>
-    </div>
   );
 }

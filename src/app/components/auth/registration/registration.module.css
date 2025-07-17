@@ -20,7 +20,7 @@
 }
 
 .inputNickname {
-padding: 8px 10px;
+  padding: 8px 10px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
@@ -29,8 +29,9 @@ padding: 8px 10px;
   background-color: #2d2c2c;
   color: #fff;
 }
+
 .inputPassword {
-padding: 8px 10px;
+  padding: 8px 10px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
@@ -42,18 +43,18 @@ padding: 8px 10px;
 
 .inputNickname:placeholder-shown,
 .inputPassword:placeholder-shown {
-background-color: #2d2c2c;
+  background-color: #2d2c2c;
 }
 
 .inputNickname:-webkit-autofill,
 .inputPassword:-webkit-autofill {
-background-color: #2d2c2c !important;
--webkit-box-shadow: 0 0 0px 1000px #2d2c2c inset !important;
--webkit-text-fill-color: #fff !important;
+  background-color: #2d2c2c !important;
+  -webkit-box-shadow: 0 0 0px 1000px #2d2c2c inset !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
 .button {
- padding: 10px;
+  padding: 10px;
   font-size: 16px;
   font-weight: 600;
   color: white;
@@ -92,37 +93,4 @@ background-color: #2d2c2c !important;
   text-decoration: underline;
   color: #66ccff;
   text-shadow: 0 0 12px #66ccff;
-}
-
-
-@media(1368px <=width <= 1920px) {
-
-
-}
-
-@media(1024px <=width <= 1199px) {
-
-
-}
-
-@media(800px <=width <= 1023px) {
-
-
-}
-
-@media(680px <=width <= 799px) {
-
-
-}
-
-@media(500px <=width <= 679px) {
-
-
-}
-@media(420px <=width <= 499px) {
-
-}
-
-@media(280px <=width <= 419px) {
-  
 }

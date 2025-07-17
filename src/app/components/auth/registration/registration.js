@@ -53,10 +53,9 @@ export default async function Registration({ searchParams }) {
   const mode = params?.mode;
 
   return (
-    <div className={styles.container}>
-      {mode === "registration" && (
-        <>
-          <form action={registerUser} className={styles.form}>
+      <>
+        {mode === "registration" && (
+          <form action={registerUser} className={`${styles.form} ${styles.container}`}>
             {error === "password_mismatch" && (
               <div className={styles.errorMessage}>Пароли не совпадают</div>
             )}
@@ -94,8 +93,7 @@ export default async function Registration({ searchParams }) {
               Вход
             </Link>
           </form>
-        </>
-      )}
-    </div>
+        )}
+      </>
   );
 }
