@@ -5,10 +5,20 @@ import styles from './installClientPwa.module.css';
 
 function InstallClientPwa() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [showInstallButton, setShowInstallButton] = useState(true); // forced true for visibility testing
+  const [showInstallButton, setShowInstallButton] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    // Проверка, запущено ли приложение как standalone PWA
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+    if (isStandalone) {
+      setShowInstallButton(false);
+      return;
+    } else {
+      setShowInstallButton(true);
+    }
 
     const handleBeforeInstallPrompt = (event) => {
       console.log('beforeinstallprompt event fired');
