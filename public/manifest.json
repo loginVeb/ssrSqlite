@@ -6,7 +6,6 @@
   "background_color": "#FFFFFF",
   "start_url": "/",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "standalone"],
   "orientation": "portrait",
   "description": "Приложение дополненной реальности.",
   "prefer_related_applications": false,
