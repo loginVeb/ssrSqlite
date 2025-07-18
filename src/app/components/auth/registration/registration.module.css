@@ -1,5 +1,5 @@
 .form {
-  grid-area: 18 / 19 / 30 / 32;
+ grid-area: 18 / 21 / 30 / 29;
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
@@ -100,10 +100,22 @@
   .form {
     grid-area: 18 / 21 / 30 / 29;
     padding: 10px;
+    font-size: 16px;
+  }
+  .inputNickname {
+    font-size: 16px;
+  }
+  .inputPassword {
+    font-size: 16px;
+  }
+  .inputPassword2 {
+    font-size: 16px;
+  }
+  .button {
+    font-size: 16px;
   }
 }
-
-@media (1024px <=width <= 1199px) {
+@media (1024px <=width <= 1367px) {
   .form {
     grid-area: 18 / 20 / 30 / 30;
     padding: 10px;
@@ -117,22 +129,29 @@
   }
 }
 
-@media (680px <=width <= 799px) {
+
+
+@media (500px <=width <= 799px) {
   .form {
-    grid-area: 18 / 18 / 30 / 32;
+    grid-area: 18 / 16 / 30 / 34;
     padding: 10px;
   }
-}
-
-@media (500px <=width <= 679px) {
-  .form {
-    grid-area: 18 / 17 / 30 / 33;
-    padding: 10px;
+     .inputNickname {
+    font-size: 14px;
+  }
+  .inputPassword {
+    font-size: 14px;
+  }
+  .inputPassword2 {
+    font-size: 14px;
+  }
+  .button {
+    font-size: 14px;
   }
 }
 @media (420px <=width <= 499px) {
   .form {
-    grid-area: 17 / 13 / 32 / 37;
+    grid-area: 17 / 13 / 30 / 37;
     padding: 10px;
   }
 
@@ -149,22 +168,41 @@
     font-size: 14px;
   }
 }
-
-@media (280px <=width <= 419px) {
+@media (320px <=width <= 419px) {
   .form {
-    grid-area: 17 / 10 / 32 / 40;
+    grid-area: 17 / 12 / 30 / 38;
+    padding: 10px;
+  }
+
+  .inputNickname {
+    font-size: 13px;
+  }
+  .inputPassword {
+    font-size: 13px;
+  }
+  .inputPassword2 {
+    font-size: 13px;
+  }
+  .button {
+    font-size: 13px;
+  }
+}
+
+@media (280px <=width <= 319px) {
+   .form {
+    grid-area: 17 / 10 / 30 / 40;
     padding: 10px;
   }
   .inputNickname {
-    font-size: 14px;
+    font-size: 12px;
   }
   .inputPassword {
-    font-size: 14px;
+    font-size: 12px;
   }
   .inputPassword2 {
-    font-size: 14px;
+    font-size: 12px;
   }
   .button {
-    font-size: 14px;
+    font-size: 12px;
   }
 }

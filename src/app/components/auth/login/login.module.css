@@ -1,9 +1,9 @@
 .form {
-  grid-area: 18 / 21 / 30 / 30;
+ grid-area: 18 / 21 / 30 / 29;
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
-  font-size: 16px;
+  font-size: 18px;
   padding: 10px;
   border-right: solid 0.5px rgb(30, 255, 0);
   border-bottom: solid 0.5px rgb(30, 255, 0);
@@ -12,7 +12,6 @@
 
 .errorMessage {
   color: red;
-  font-weight: bold;
   grid-area: 1 / 3 / 2 / 47;
 }
 .inputNickname {
@@ -37,6 +36,17 @@
   color: #fff;
 }
 
+.inputPassword2 {
+  grid-area: 26 / 3 / 34 / 47;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: rgba(45, 44, 44, 0.5);
+  color: #fff;
+}
+
 .inputNickname:placeholder-shown,
 .inputPassword:placeholder-shown {
   background-color: rgba(45, 44, 44, 0.5);
@@ -50,7 +60,7 @@
 }
 
 .button {
-  grid-area: 26 / 3 / 34 / 47;
+  grid-area: 37 / 3 / 45 / 47;
   font-size: 16px;
   font-weight: 600;
   color: white;
@@ -65,12 +75,8 @@
   background-color: rgb(99, 255, 0);
 }
 
-.button:active {
-  background-color: #ccc;
-}
-
 .link {
-  grid-area: 40 / 3 / 44 / 47;
+  grid-area: 47 / 3 / 48 / 47;
   cursor: pointer;
   color: #0099ff; /* неоновый синий */
   text-align: center;
@@ -94,10 +100,22 @@
   .form {
     grid-area: 18 / 21 / 30 / 29;
     padding: 10px;
+    font-size: 16px;
+  }
+  .inputNickname {
+    font-size: 16px;
+  }
+  .inputPassword {
+    font-size: 16px;
+  }
+  .inputPassword2 {
+    font-size: 16px;
+  }
+  .button {
+    font-size: 16px;
   }
 }
-
-@media (1024px <=width <= 1199px) {
+@media (1024px <=width <= 1367px) {
   .form {
     grid-area: 18 / 20 / 30 / 30;
     padding: 10px;
@@ -111,22 +129,29 @@
   }
 }
 
-@media (680px <=width <= 799px) {
+
+
+@media (500px <=width <= 799px) {
   .form {
-    grid-area: 18 / 18 / 30 / 32;
+    grid-area: 18 / 16 / 30 / 34;
     padding: 10px;
   }
-}
-
-@media (500px <=width <= 679px) {
-  .form {
-    grid-area: 18 / 17 / 30 / 33;
-    padding: 10px;
+   .inputNickname {
+    font-size: 14px;
+  }
+  .inputPassword {
+    font-size: 14px;
+  }
+  .inputPassword2 {
+    font-size: 14px;
+  }
+  .button {
+    font-size: 14px;
   }
 }
 @media (420px <=width <= 499px) {
   .form {
-    grid-area: 17 / 13 / 32 / 37;
+    grid-area: 17 / 13 / 30 / 37;
     padding: 10px;
   }
 
@@ -143,22 +168,41 @@
     font-size: 14px;
   }
 }
+@media (320px <=width <= 419px) {
+  .form {
+    grid-area: 17 / 12 / 30 / 38;
+    padding: 10px;
+  }
 
-@media (280px <=width <= 419px) {
+  .inputNickname {
+    font-size: 13px;
+  }
+  .inputPassword {
+    font-size: 13px;
+  }
+  .inputPassword2 {
+    font-size: 13px;
+  }
+  .button {
+    font-size: 13px;
+  }
+}
+
+@media (280px <=width <= 319px) {
    .form {
-    grid-area: 17 / 10 / 32 / 40;
+    grid-area: 17 / 10 / 30 / 40;
     padding: 10px;
   }
   .inputNickname {
-    font-size: 14px;
+    font-size: 12px;
   }
   .inputPassword {
-    font-size: 14px;
+    font-size: 12px;
   }
   .inputPassword2 {
-    font-size: 14px;
+    font-size: 12px;
   }
   .button {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
