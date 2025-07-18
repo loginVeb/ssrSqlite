@@ -9,7 +9,7 @@ export default async function Home({ searchParams }) {
   const mode = params?.mode || "login";
 
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} ${styles.content}`}>
       <InstallClientPwa styles={styles} />
       {mode === "login" && <Login searchParams={params} />}
       {mode === "registration" && <Registration searchParams={params} />}

@@ -12,3 +12,10 @@ body {
 nextjs-portal {
   display: none !important;
 }
+
+/* Новые стили для безопасных зон только для (iOS/macOS) */
+.content {
+  min-height: 100dvh;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  padding-top: calc(20px + env(safe-area-inset-top));
+}

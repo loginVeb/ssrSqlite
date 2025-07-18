@@ -1,4 +1,4 @@
-import { generateViewport } from './viewport';
+// import { generateViewport } from './viewport';
 import "./globals.css";
 import manifest from '../../public/manifest.json';
 
@@ -8,11 +8,18 @@ export const metadata = {
   description: manifest.description,
 };
 
-export const viewport = generateViewport();
+// export const viewport = generateViewport();
+export const viewport = {
+  width: 'device-width',
+  height: 'device-height',
+  initialScale: 1,
+  viewportFit: 'cover'
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang={manifest.lang} suppressHydrationWarning>
+    //suppressHydrationWarning
+    <html lang={manifest.lang} >
       <head>
         <meta name="application-name" content={manifest.name} />
         <meta name="description" content={manifest.description} />
