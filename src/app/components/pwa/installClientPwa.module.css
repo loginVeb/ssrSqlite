@@ -11,15 +11,13 @@
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
-  /* height: 100vh; */
   background-color: #e6f3ff;
-  padding: 4px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .installButton {
-  grid-area: 1/1/49/42;
+  grid-area: 1/1/48/43;
   background-color: #2e7d32; /* более темный зеленый для лучшего контраста */
   color: #e0e0e0; /* светло-серый текст для лучшего контраста */
   cursor: pointer;
@@ -32,8 +30,7 @@
 }
 
 .closeButton {
-  grid-area: 1/42/49/49;
-  font-size: 18px;
+  grid-area: 1/43/48/48;
   cursor: pointer;
   color: #f00909;
 }
@@ -55,39 +52,81 @@
   .clientPwa {
     grid-area: 2/21/4/29;
   }
+  .installButton {
+    font-size: 16px;
+  }
+   .closeButton {
+  font-size: 16px;
+  }
 }
 
 @media (1024px <=width <= 1199px) {
   .clientPwa {
-    grid-area: 2/20/3/30;
+    grid-area: 2/20/4/30;
+  }
+  .installButton {
+    font-size: 16px;
+  }
+   .closeButton {
+  font-size: 16px;
   }
 }
 
 @media (800px <=width <= 1023px) {
   .clientPwa {
-    grid-area: 2/19/3/31;
+    grid-area: 2/19/4/31;
+  }
+  .installButton {
+    font-size: 16px;
+  }
+  .closeButton {
+  font-size: 16px;
   }
 }
 
 @media (680px <=width <= 799px) {
   .clientPwa {
-    grid-area: 2/18/3/32;
+    grid-area: 2/18/4/32;
+  }
+  .installButton {
+    font-size: 16px;
+  }
+  .closeButton {
+  font-size: 16px;
   }
 }
 
 @media (500px <=width <= 679px) {
   .clientPwa {
-    grid-area: 2/17/3/33;
+    grid-area: 2/17/4/33;
+  }
+  .installButton {
+    font-size: 15px;
+  }
+  .closeButton {
+  font-size: 15px;
   }
 }
 @media (420px <=width <= 499px) {
   .clientPwa {
-    grid-area: 2/16/3/34;
+    grid-area: 2/15/4/35;
+  }
+  .installButton {
+    font-size: 13px;
+  }
+  .closeButton {
+  font-size: 13px;
   }
 }
 
 @media (280px <=width <= 419px) {
   .clientPwa {
-     grid-area: 2/16/3/34;
+     grid-area: 2/15/4/35;
+  }
+  .installButton {
+    font-size: 12px;
+  }
+  .closeButton {
+  font-size: 12px;
   }
 }

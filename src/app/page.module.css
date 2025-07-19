@@ -38,5 +38,8 @@
 }
 
 @media(280px <=width <= 419px) {
-  
+
+.main {
+ grid-template-rows: repeat(48, minmax(15px, 1fr));
+  }
 }
