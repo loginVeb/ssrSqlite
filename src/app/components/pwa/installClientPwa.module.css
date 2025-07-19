@@ -1,5 +1,5 @@
 .clientPwa {
-   grid-area: 2/21/3/29;
+   grid-area: 2/21/4/29;
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
@@ -53,7 +53,7 @@
 
 @media (1368px <=width <= 1920px) {
   .clientPwa {
-    grid-area: 2/21/3/29;
+    grid-area: 2/21/4/29;
   }
 }
 

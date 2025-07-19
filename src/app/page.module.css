@@ -1,12 +1,12 @@
 .main {
   display: grid;
   grid-template-columns: repeat(48, 1fr);
-  grid-template-rows: repeat(48, 1fr);
+ grid-template-rows: repeat(48, minmax(12px, 1fr));
   height: 100vh;
   height: 100dvh;
+  overflow-y: auto;
   background: url("/img/fonLayout.png");
  background-size:cover;
-  overflow-y: auto;
 }
 
 @media(1368px <=width <= 1920px) {
