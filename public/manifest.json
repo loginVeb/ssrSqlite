@@ -6,7 +6,7 @@
   "background_color": "#FFFFFF",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
+ "orientation": "portrait-primary",
   "description": "Приложение дополненной реальности.",
   "prefer_related_applications": false,
   "categories": ["productivity", "utilities"],
@@ -26,7 +26,7 @@
   ],
   "shortcuts": [
     {
-      "name": "Открыть расписание",
+      "name": "QR ZONE",
       "url": "/",
       "icons": [{ "src": "imgpwa/android/android-launchericon-96-96.png", "sizes": "96x96" }]
     }

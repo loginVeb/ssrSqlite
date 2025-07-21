@@ -3,17 +3,19 @@
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
+  text-align: center;
   z-index: 1;
 }
 
 .installContainer {
-  grid-area: 1/1/49/49;
+  grid-area: 1/1/48/48;
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48, 1fr);
   background-color: #e6f3ff;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .installButton {
@@ -23,6 +25,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   border-radius: 4px;
+  text-align: center;
 }
 
 .installButton:hover {
@@ -33,6 +36,7 @@
   grid-area: 1/43/48/48;
   cursor: pointer;
   color: #f00909;
+  text-align: center;
 }
 
 .closeButton:hover {
