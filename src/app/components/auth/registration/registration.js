@@ -12,6 +12,10 @@ async function registerUser(formData) {
   "use server";
   const { nickname, password, confirmPassword } = Object.fromEntries(formData);
 
+  if (nickname.length > 10 || password.length > 10) {
+    redirect("/?mode=registration&error=length_exceeded");
+  }
+
   if (password !== confirmPassword) {
     redirect("/?mode=registration&error=password_mismatch");
   }
@@ -56,6 +60,9 @@ export default async function Registration({ searchParams }) {
       <>
         {mode === "registration" && (
           <form action={registerUser} className={`${styles.form} ${styles.container}`}>
+            {error === "length_exceeded" && (
+              <div className={styles.errorMessage}>Максимальная длина 10</div>
+            )}
             {error === "password_mismatch" && (
               <div className={styles.errorMessage}>Пароли не совпадают</div>
             )}
@@ -64,17 +71,19 @@ export default async function Registration({ searchParams }) {
             )}
             <input
               type="text"
-              placeholder="nickname"
+              placeholder="nickname max 10"
               required
               name="nickname"
-               autoComplete="username"
+              maxLength={10}
+              autoComplete="username"
               className={styles.inputNickname}
             />
             <input
               type="password"
-              placeholder="password"
+              placeholder="password max 10"
               required
               name="password"
+              maxLength={10}
               autoComplete="new-password"
               className={styles.inputPassword}
             />
@@ -83,6 +92,7 @@ export default async function Registration({ searchParams }) {
               placeholder="confirm password"
               required
               name="confirmPassword"
+              maxLength={10}
               autoComplete="new-password"
               className={styles.inputPassword2}
             />
