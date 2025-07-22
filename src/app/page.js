@@ -32,47 +32,56 @@ export default async function Home({ searchParams }) {
 
 // bash deploy_ssrSqlite.sh
 // npm run dev
-// npm run s
-// ./deploy.sh
-// npm run build && npm run start
-// npm run dev --pwa
+
+
 // git add ./
 // git commit -am '
 //  git push
 // git pull 
-// vercel --prod
-// git log
+
 // git stash
-// git status
 // git reset --hard
-// git checkout commitProject
-// git branch 
+
+// git log
+// git status
+
+//удалить коммит удалённо
 // git push -f origin HEAD~1:main
-// npm run build
 // Удолить локально коммит
 // git reset HEAD~
 
-// git switch -
-// git merge ref 
-// rm -rf node_modules package-lock.json
+// git checkout commitProject
+// git branch 
+
 //Создать новую ветку и автоматически слить текущую ветку
 // git switch --create <name>
+
+//вернутся на предыдущюю ветку
+// git switch -
+
+
 //Удолить локальную ветку
 //git branch -D name
 //Чтобы удалить ветку из удаленного репозитория, 
  //git push origin --delete nameBranch
+
+ // удолить зависимости
+// rm -rf node_modules package-lock.json
  
-// npx prisma
 // npx prisma studio
-// npx prisma init
-// npx prisma db pull
-// mkdir -p prisma/migrations/0_init
-// npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > prisma/migrations/0_init/migration.sql
-// npx prisma migrate resolve --applied 0_init~
+//подключение
+// ssh root@109.172.37.134
+// запуск prisma studio на сервере
+// ssh -L 5555:localhost:5555 root@109.172.37.134
+// ssh root@109.172.37.134 'cd ../var/www/html && npx prisma studio --port 5555'
 
-// DATABASE_URL="mysql://auth_headingair:f585811040d0fb4be63060299bf6db5c4b37fb1d@z8z.h.filess.io:3306/auth_headingair"
-// # DATABASE_URL="mysql://root:root@localhost:3306/auth"
+// убить процес prisma studio на сервере
+// ssh root@109.172.37.134 'sudo lsof -i :5555'
+// вставить номер который будетт   ode 69583 root 
+// ssh root@109.172.37.134 'sudo kill 70227'
 
+// посмотреть логи на сервере
+// pm2 logs pwaArcope --lines 100
 
 // ты хорошо изуил рассказал про проект молодец  и ещё запомни в маём проекте нет api и клиентских компонентов я стараюсь их избегать на сколько
 //  это возможно обойтись без них дя решения задачи  так и ты предлгай в своих рекомендациях и планах в место 
