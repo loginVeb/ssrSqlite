@@ -19,8 +19,10 @@ ssh "$REMOTE_USER@$REMOTE_HOST" "rm -rf $REMOTE_PATH/.next"
 
 echo "Синхронизация файлов с сервером..."
 scp -r "$LOCAL_PROJECT_PATH/.next" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-scp -r "$LOCAL_PROJECT_PATH/public" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-scp -r "$LOCAL_PROJECT_PATH/prisma" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+# Исключаем папку imgpwa из public, чтобы не перезаписывать её на сервере
+rsync -av --exclude='imgpwa/***' --exclude='imgpwa' "$LOCAL_PROJECT_PATH/public" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/public"
+# Исключаем локальную базу данных из деплоя
+rsync -av --exclude='var/www/db/dev.db' --exclude='var/www/db/' "$LOCAL_PROJECT_PATH/prisma" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/prisma"
 scp "$LOCAL_PROJECT_PATH/package.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
 scp "$LOCAL_PROJECT_PATH/package-lock.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
 scp "$LOCAL_PROJECT_PATH/.env" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
