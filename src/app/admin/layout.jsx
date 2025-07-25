@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";
+import Header from "./adminComponents/header/header";
 
 export const metadata = {
   title: "Admin Panel",
@@ -29,8 +30,11 @@ export default async function AdminLayout({ children }) {
   }
 
   return (
-    <main className={styles.adminLayout}>
-      {children}
-    </main>
+    <>
+      <Header />
+      <main className={styles.adminLayout}>
+        {children}
+      </main>
+    </>
   );
 }
