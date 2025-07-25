@@ -22,7 +22,8 @@ export default async function AdminLayout({ children }) {
     const decoded = jwt.verify(token, SECRET_KEY);
     const adminNickname = process.env.ADMIN_NICKNAME;
 
-    if (decoded.nickname !== adminNickname) {
+    // Явная проверка, что пользователь - админ
+    if (!decoded.nickname || decoded.nickname !== adminNickname) {
       redirect("/?mode=login");
     }
   } catch (error) {
