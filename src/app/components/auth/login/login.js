@@ -37,7 +37,11 @@ async function login(formData) {
     path: "/",
   });
 
-  redirect("/user");
+  if (user.nickname === process.env.ADMIN_NICKNAME) {
+    redirect("/admin");
+  } else {
+    redirect("/user");
+  }
 }
 
 export default async function Login({ searchParams }) {
