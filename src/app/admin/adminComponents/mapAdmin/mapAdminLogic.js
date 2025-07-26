@@ -9,6 +9,7 @@ export async function initMap(mapRef) {
     center: [57.14298050115737, 33.11646223068238],
     zoom: 13,
     attributionControl: false,
+    zoomControl: false,
   });
 
   L.tileLayer(
