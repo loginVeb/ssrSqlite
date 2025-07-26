@@ -9,5 +9,60 @@
 
 .leafletMap{
    grid-area: 1 / 1 / 49 / 49;
+
+   display: grid;
+  grid-template-columns: repeat(48, 1fr);
+  grid-template-rows: repeat(48, 1fr);
+}
+
+.mapContainer {
+  display: grid;
+  grid-template-columns: repeat(48, 1fr);
+  grid-template-rows: repeat(48, 1fr);
+  grid-area: 1 / 1 / 49 / 49;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.saveButton {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 112, 243, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  align-self: start;
+  justify-self: center;
+  width: 200px;
+}
+
+.saveButton:hover {
+  background-color: #005bb5;
+  box-shadow: 0 6px 12px rgba(0, 91, 181, 0.6);
+}
+
+.rezhim {
+  grid-area: 1 / 1 / 4 / 6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.greenBackground {
+  background-color: green;
+}
+
+.redBackground {
+  background-color: red;
 }
 
