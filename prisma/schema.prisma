@@ -16,3 +16,20 @@ model User {
   nickname String  @unique
   password String
 }
+
+model map_zone {
+  id Int @id @default(autoincrement())
+  x1 Float
+  y1 Float
+  x2 Float
+  y2 Float
+}
+
+model marker_in_the_zone {
+  id          Int     @id @default(autoincrement())
+  x           Float
+  y           Float
+  map_zone_id Int?
+
+  @@index([map_zone_id], map: "map_zone_id")
+}
