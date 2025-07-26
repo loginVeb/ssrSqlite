@@ -8,6 +8,7 @@ export async function initMap(mapRef) {
   mapRef.current = L.map("mapAdminContainer", {
     center: [57.14298050115737, 33.11646223068238],
     zoom: 13,
+    attributionControl: false,
   });
 
   L.tileLayer(

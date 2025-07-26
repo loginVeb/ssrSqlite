@@ -10,3 +10,7 @@
 .leafletMap{
    grid-area: 1 / 1 / 49 / 49;
 }
+
+.leaflet-bottom.leaflet-right {
+  display: none !important;
+}
