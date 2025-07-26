@@ -22,16 +22,17 @@ export default withPWA({
       if (!config.optimization.splitChunks.cacheGroups) {
         config.optimization.splitChunks.cacheGroups = {};
       }
-      config.optimization.splitChunks.cacheGroups.commons = {
-        test: /[\\/]node_modules[\\/]/,
-        name: 'vendor',
-        chunks: 'all',
-      };
+      // Отключаем выделение vendor.css
+      // config.optimization.splitChunks.cacheGroups.commons = {
+      //   test: /[\\/]node_modules[\\/]/,
+      //   name: 'vendor',
+      //   chunks: 'all',
+      // };
     }
     return config;
   },
   images: {
-    domains: [],
+  domains: ['kliespegethum.beget.app'],
   },
   // Удален блок routes
 });
