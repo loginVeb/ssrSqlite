@@ -15,9 +15,11 @@
     "bcrypt": "6.0.0",
     "jsonwebtoken": "9.0.2",
     "leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-leaflet-draw": "^0.20.6",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
