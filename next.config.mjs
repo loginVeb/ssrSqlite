@@ -24,8 +24,8 @@ export default withPWA({
       }
       config.optimization.splitChunks.cacheGroups.commons = {
         test: /[\\/]node_modules[\\/]/,
-        name: 'vendor',
-        chunks: 'all',
+        // name: 'vendor',
+        // chunks: 'all',
       };
     }
     return config;
