@@ -1,4 +1,3 @@
-// src/app/admin/adminComponents/mapAdmin/mapAdmin.jsx
 'use client'
 
 import styles from "./mapAdmin.module.css";

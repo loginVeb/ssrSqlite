@@ -55,7 +55,7 @@ export function useMapAdminLogic() {
 
     // Инициализация инструмента рисования
     drawInstance.current = new MapLibreDraw({
-      displayControlsDefault: false,
+      displayControlsDefault: true, // Включаем отображение контролов по умолчанию
       controls: {
         polygon: true,  // Включаем рисование полигонов (прямоугольники)
         trash: true,    // Кнопка удаления
@@ -65,10 +65,13 @@ export function useMapAdminLogic() {
 
     mapInstance.current.addControl(drawInstance.current);
 
+    console.log("MapLibreDraw initialized:", drawInstance.current);
+
     // Обработка события завершения рисования
     mapInstance.current.on("draw.create", (e) => {
       const features = e.features;
       setRectangles((prev) => [...prev, ...features]); // Добавляем в состояние
+      console.log("Draw create event:", features);
     });
 
     // Обработка события удаления
@@ -77,6 +80,7 @@ export function useMapAdminLogic() {
         (rect) => !e.features.some((f) => f.id === rect.id)
       );
       setRectangles(remaining);
+      console.log("Draw delete event:", e.features);
     });
   }, []);
 
