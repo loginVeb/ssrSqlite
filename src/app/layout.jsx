@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-title" content={manifest.short_name} />
         <meta name="msapplication-TileColor" content="#FFFFFF" />
-        <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"></link>
+        {/* <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"></link> */}
       </head>
       <body>
         {children}

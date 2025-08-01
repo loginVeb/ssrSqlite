@@ -1,43 +1,69 @@
+
+
 .maplibregl-map {
+ grid-area: 1 / 1 / 49 / 49 !important;
+  display: grid !important;
+  grid-template-columns: repeat(48, 1fr) !important;
+  grid-template-rows: repeat(48, 1fr) !important;
   border: 2px solid blue !important;
   grid-area: auto !important;
   z-index: 10 !important;
+  color: black !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
 }
 
 .maplibregl-canvas-container {
+ grid-area: 1 / 1 / 49 / 49 !important;
+  display: grid !important;
+  grid-template-columns: repeat(48, 1fr) !important;
+  grid-template-rows: repeat(48, 1fr) !important;
   border: 2px solid green !important;
-  grid-area: auto !important;
   z-index: 10 !important;
+}
+
+.maplibregl-canvas{
+  width: 100% !important;
+height: 100% !important;
+ grid-area: 1 / 1 / 49 / 49 !important;
+  display: grid !important;
+  grid-template-columns: repeat(48, 1fr) !important;
+  grid-template-rows: repeat(48, 1fr) !important;
+  border: 2px solid green !important;
+
 }
 
 .maplibregl-interactive {
   border: 2px solid orange !important;
-  grid-area: auto !important;
+  /* grid-area: auto !important; */
   z-index: 10 !important;
 }
 
 .maplibregl-touch-zoom-rotate {
   border: 2px solid purple !important;
-  grid-area: auto !important;
+  /* grid-area: auto !important; */
   z-index: 10 !important;
 }
 
 .maplibregl-touch-drag-pan {
   border: 2px solid brown !important;
-  grid-area: auto !important;
+  /* grid-area: auto !important; */
   z-index: 10 !important;
 }
 
 .maplibregl-canvas {
   border: 2px solid pink !important;
-  grid-area: auto !important;
+  /* grid-area: auto !important; */
   z-index: 10 !important;
 }
 
 .maplibregl-control-container {
   border: 2px solid yellow !important;
-  grid-area: auto !important;
+  /* grid-area: auto !important; */
   z-index: 10 !important;
+  color: black !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
 }
 
 .maplibregl-ctrl-top-left {
@@ -116,6 +142,9 @@
   border: 2px solid khaki !important;
   grid-area: auto !important;
   z-index: 10 !important;
+  color: black !important;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
 }
 
 .maplibregl-ctrl-attrib-button {

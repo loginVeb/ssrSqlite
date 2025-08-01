@@ -3,8 +3,8 @@ import MapAdmin from "./adminComponents/mapAdmin/mapAdmin";
 export default function Admin() {
 
   return (
-    <main className={styles.main}>
+    <section className={styles.section}>
      <MapAdmin/>  
-    </main>
+    </section>
   );
 }
