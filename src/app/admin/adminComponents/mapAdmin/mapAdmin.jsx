@@ -7,9 +7,6 @@ export default function MapAdmin() {
   const { mapContainer } = useMapAdminLogic();
 
   return (
-    <div
-      ref={mapContainer}
-      className={styles.mapAdminConainer}
-    />
+    <div ref={mapContainer} className={styles.mapAdminConainer}/>
   );
 }
