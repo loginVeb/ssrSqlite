@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import "./globalMap.css";
+// import "./globalMap.css";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { redirect } from "next/navigation";

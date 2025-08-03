@@ -1,13 +1,11 @@
 .adminLayout{
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-.section {
+  height: 100vh;
   display: grid;
   grid-template-columns: repeat(48, 1fr);
-  grid-template-rows: repeat(48, minmax(12px, 1fr));
-   height: 100vh;
-  height: 100dvh; 
-  overflow-y: auto;
-  background: #87f187;
+  grid-template-rows: repeat(48,  1fr);
+    border: 8px solid rgb(230, 57, 201) !important;
+    overflow: hidden;
+}
+.section {
+  grid-area: 3 / 3 / 45 / 45 !important;
 }
