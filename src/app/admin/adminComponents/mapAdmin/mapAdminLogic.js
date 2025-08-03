@@ -78,21 +78,22 @@ export function useMapAdminLogic() {
 
     // Если зон нет, удаляем источники и слои если они существуют
     if (zones.length === 0) {
-      if (mapInstance.current.getSource("zones-source")) {
-        mapInstance.current.removeSource("zones-source");
-      }
+      // Сначала удаляем слой, затем источник
       if (mapInstance.current.getLayer("zones-layer")) {
         mapInstance.current.removeLayer("zones-layer");
+      }
+      if (mapInstance.current.getSource("zones-source")) {
+        mapInstance.current.removeSource("zones-source");
       }
       return;
     }
 
-    // Удаляем старые источники и слои
-    if (mapInstance.current.getSource("zones-source")) {
-      mapInstance.current.removeSource("zones-source");
-    }
+    // Удаляем старые источники и слои (в правильном порядке)
     if (mapInstance.current.getLayer("zones-layer")) {
       mapInstance.current.removeLayer("zones-layer");
+    }
+    if (mapInstance.current.getSource("zones-source")) {
+      mapInstance.current.removeSource("zones-source");
     }
 
     // Создаём GeoJSON из зон
