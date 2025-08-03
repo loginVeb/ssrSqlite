@@ -18,11 +18,11 @@ model User {
 }
 
 model map_zone {
-  id Int @id @default(autoincrement())
-  x1 Float
-  y1 Float
-  x2 Float
-  y2 Float
+  id        Int      @id @default(autoincrement())
+  name      String?
+  geojson   String   // Поле для хранения GeoJSON геометрии зоны
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model marker_in_the_zone {
