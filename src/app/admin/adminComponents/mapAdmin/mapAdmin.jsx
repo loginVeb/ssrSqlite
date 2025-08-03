@@ -4,9 +4,18 @@ import styles from "./mapAdmin.module.css";
 import { useMapAdminLogic } from "./mapAdminLogic";
 
 export default function MapAdmin() {
-  const { mapContainer } = useMapAdminLogic();
+  const { mapContainer, handleSaveZones, isSaving } = useMapAdminLogic();
 
   return (
-    <div ref={mapContainer} className={styles.mapAdminConainer}/>
+    <div className={styles.mapAdminContainer}>
+      <div ref={mapContainer} className={styles.mapInnerContainer}/>
+      <button 
+        onClick={handleSaveZones} 
+        className={styles.saveButton}
+        disabled={isSaving}
+      >
+        {isSaving ? 'Сохранение...' : 'Сохранить зоны'}
+      </button>
+    </div>
   );
 }

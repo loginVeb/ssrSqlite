@@ -12,6 +12,25 @@ export function useMapAdminLogic() {
   const mapInstance = useRef(null);
   const drawInstance = useRef(null); // Храним экземпляр рисования
   const [zones, setZones] = useState([]); // Сохранённые зоны
+  const [isSaving, setIsSaving] = useState(false); // Состояние сохранения
+
+  // Загрузка зон из базы данных при инициализации
+  useEffect(() => {
+    const loadZonesFromDB = async () => {
+      try {
+        const response = await fetch('/api/map/loadZones');
+        const result = await response.json();
+        
+        if (result.success && result.zones) {
+          setZones(result.zones);
+        }
+      } catch (error) {
+        console.error('Error loading zones from DB:', error);
+      }
+    };
+
+    loadZonesFromDB();
+  }, []);
 
   useEffect(() => {
     if (mapInstance.current) return;
@@ -127,6 +146,38 @@ export function useMapAdminLogic() {
     });
   }, [zones]); // Добавляем зависимость от zones
 
-  // Возвращаем объект с mapContainer
-  return { mapContainer };
+  // Функция для сохранения зон в базе данных
+  const handleSaveZones = async () => {
+    setIsSaving(true);
+    try {
+      // Получаем все текущие зоны из инструмента рисования
+      const currentZones = drawInstance.current.getAll().features;
+      
+      const response = await fetch('/api/map/saveZones', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ zones: currentZones }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('Zones saved successfully');
+        // Можно добавить уведомление об успешном сохранении
+      } else {
+        console.error('Error saving zones:', result.error);
+        // Можно добавить уведомление об ошибке
+      }
+    } catch (error) {
+      console.error('Error saving zones:', error);
+      // Можно добавить уведомление об ошибке
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Возвращаем объект с mapContainer и функцией сохранения
+  return { mapContainer, handleSaveZones, isSaving };
 }

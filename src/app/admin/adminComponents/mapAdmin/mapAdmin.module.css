@@ -1,6 +1,35 @@
-.mapAdminConainer {
+.mapAdminContainer {
   height: 100%; 
   width: 100%;
   border: 2px solid red !important;
+  position: relative;
+}
+
+.mapInnerContainer {
+  height: 100%;
+  width: 100%;
+}
+
+.saveButton {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  z-index: 1100; /* Увеличен z-index, чтобы кнопка была выше элементов maplibre-gl-draw */
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.saveButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
