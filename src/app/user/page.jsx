@@ -21,8 +21,8 @@ export default async function User() {
   }
 
   return (
-    <main className={styles.main}>
+    <section className={styles.section}>
   <MapUser/>
-    </main>
+    </section>
   );
 }

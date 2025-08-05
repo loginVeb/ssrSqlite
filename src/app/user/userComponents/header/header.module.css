@@ -1,0 +1,7 @@
+.header {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+ grid-template-rows: repeat(12, minmax(5px, 5px));
+  background: #8797f1;
+  color: #87f18c;
+}
