@@ -1,8 +1,13 @@
-.mapUserConainer {
-  grid-area: 3 / 3 / 45 / 45;
-  display: grid;
-  grid-template-columns: repeat(48, 1fr);
-  grid-template-rows: repeat(48, 1fr);
 
-  border: 1px solid black;
+
+.mapUserContainer {
+  height: 100%; 
+  width: 100%;
+  border: 2px solid red !important;
+  position: relative;
+}
+
+.mapInnerContainer {
+  height: 100%;
+  width: 100%;
 }
