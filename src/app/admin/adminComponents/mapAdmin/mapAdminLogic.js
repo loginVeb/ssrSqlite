@@ -84,10 +84,15 @@ export function useMapAdminLogic() {
 
     // Обработка события удаления
     mapInstance.current.on("draw.delete", (e) => {
-      const remaining = zones.filter(
-        (zone) => !e.features.some((f) => f.id === zone.id)
-      );
-      setZones(remaining);
+      // Получаем текущие зоны из draw инструмента
+      const currentZones = drawInstance.current.getAll().features;
+      setZones(currentZones);
+    });
+
+    // Обработка события редактирования
+    mapInstance.current.on("draw.update", (e) => {
+      const currentZones = drawInstance.current.getAll().features;
+      setZones(currentZones);
     });
   }, []); // Пустой массив зависимостей для useEffect
 
