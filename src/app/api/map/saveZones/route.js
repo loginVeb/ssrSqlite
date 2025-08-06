@@ -4,20 +4,46 @@ export async function POST(request) {
   try {
     const { zones } = await request.json();
     
-    // Удаляем все существующие зоны
-    await prisma.map_zone.deleteMany();
+    if (!Array.isArray(zones)) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Invalid zones format" }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    const savedZones = [];
     
-    // Сохраняем новые зоны
-    const savedZones = await Promise.all(
-      zones.map((zone) => {
-        return prisma.map_zone.create({
+    // Обрабатываем каждую зону из запроса
+    for (const zone of zones) {
+      const zoneId = zone.properties?.id;
+      const zoneName = zone.properties?.name || 'Без названия';
+      
+      if (zoneId && zoneId > 0) {
+        // Обновляем существующую зону
+        const updatedZone = await prisma.map_zone.update({
+          where: { id: zoneId },
           data: {
-            name: zone.properties?.name || null,
+            name: zoneName,
             geojson: JSON.stringify(zone),
           },
         });
-      })
-    );
+        savedZones.push(updatedZone);
+      } else {
+        // Создаем новую зону
+        const newZone = await prisma.map_zone.create({
+          data: {
+            name: zoneName,
+            geojson: JSON.stringify(zone),
+          },
+        });
+        savedZones.push(newZone);
+      }
+    }
     
     return new Response(
       JSON.stringify({ success: true, zones: savedZones }),

@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#FFFFFF" />
         <meta name="color-scheme" content="light dark" />
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
-        <link rel="manifest" href="/manifest.json" preload="true" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="/favicomatic/favicon.ico" />
         <meta name="mobile-web-app-capable" content="yes" />

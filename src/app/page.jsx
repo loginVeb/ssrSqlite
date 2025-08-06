@@ -78,7 +78,7 @@ export default async function Home({ searchParams }) {
 // ssh root@109.172.37.134
 // запуск prisma studio на сервере
 // ssh -L 5555:localhost:5555 root@109.172.37.134
-// ssh root@109.172.37.134 'cd ../var/www/html && npx prisma studio --port 5555'
+// ssh root@109.172.37.134 'cd /var/www/html && npx prisma studio --port 5555'
 
 // убить процес prisma studio на сервере
 // ssh root@109.172.37.134 'sudo lsof -i :5555'
@@ -87,3 +87,8 @@ export default async function Home({ searchParams }) {
 
 // посмотреть логи на сервере
 // pm2 logs pwaArcope --lines 100
+
+// Проверка производительности
+// pm2 monit
+
+// ssh root@109.172.37.134 && 'cd ../var/www/html'
