@@ -18,15 +18,18 @@ echo "Удаление кеша и старой сборки на сервере
 ssh "$REMOTE_USER@$REMOTE_HOST" "rm -rf $REMOTE_PATH/.next"
 
 echo "Синхронизация файлов с сервером..."
-scp -r "$LOCAL_PROJECT_PATH/.next" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-# Исключаем папку imgpwa из public, чтобы не перезаписывать её на сервере
-rsync -av --exclude='imgpwa/***' --exclude='imgpwa' "$LOCAL_PROJECT_PATH/public" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/public"
-# Исключаем локальную базу данных из деплоя
-rsync -av --exclude='var/www/db/dev.db' --exclude='var/www/db/' "$LOCAL_PROJECT_PATH/prisma" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/prisma"
-scp "$LOCAL_PROJECT_PATH/package.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-scp "$LOCAL_PROJECT_PATH/package-lock.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-scp "$LOCAL_PROJECT_PATH/.env" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-scp "$LOCAL_PROJECT_PATH/ecosystem.config.js" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+# Копируем .next, исключая локальные артефакты
+rsync -av --exclude='.next/cache' "$LOCAL_PROJECT_PATH/.next" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+# Копируем public, исключая imgpwa и favicomatic
+rsync -av --exclude='imgpwa' --exclude='favicomatic' "$LOCAL_PROJECT_PATH/public" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/public"
+# Копируем prisma, исключая всю папку var (все локальные БД)
+rsync -av --exclude='var' "$LOCAL_PROJECT_PATH/prisma" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/prisma"
+# Копируем остальные файлы
+rsync -av --exclude='node_modules' --exclude='.next' --exclude='src/generated' --exclude='.env.local' \
+  "$LOCAL_PROJECT_PATH/package.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+rsync -av "$LOCAL_PROJECT_PATH/package-lock.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+rsync -av "$LOCAL_PROJECT_PATH/.env" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+rsync -av "$LOCAL_PROJECT_PATH/ecosystem.config.js" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
 
 echo "Установка зависимостей на сервере..."
 ssh "$REMOTE_USER@$REMOTE_HOST" "cd $REMOTE_PATH && npm install --legacy-peer-deps"
