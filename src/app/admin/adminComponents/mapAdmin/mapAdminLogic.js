@@ -96,7 +96,8 @@ export function useMapAdminLogic() {
       
       // Удаляем зоны из БД по ID
       deletedFeatures.forEach(feature => {
-        const zoneId = feature.id; // ✅ Используем прямой ID из GeoJSON
+        // Используем ID из properties или напрямую из feature
+        const zoneId = feature.properties?.id || feature.id;
         if (zoneId) {
           handleDeleteZone(zoneId);
         }

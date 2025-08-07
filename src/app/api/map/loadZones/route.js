@@ -4,10 +4,17 @@ export async function GET() {
   try {
     const zones = await prisma.map_zone.findMany();
     
-    // Преобразуем geojson строку обратно в объект
+    // Преобразуем geojson строку обратно в объект и добавляем ID из БД
     const zoneFeatures = zones.map((zone) => {
       try {
-        return JSON.parse(zone.geojson);
+        const feature = JSON.parse(zone.geojson);
+        // Добавляем ID из базы данных в properties
+        if (feature.properties) {
+          feature.properties.id = zone.id;
+        } else {
+          feature.properties = { id: zone.id };
+        }
+        return feature;
       } catch (error) {
         console.error("Error parsing geojson for zone:", zone.id, error);
         return null;
