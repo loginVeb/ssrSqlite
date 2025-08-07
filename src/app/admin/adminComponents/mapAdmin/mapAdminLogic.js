@@ -1,4 +1,3 @@
-// src/app/admin/adminComponents/mapAdmin/mapAdminLogic.js
 'use client'
 
 import { useEffect, useRef, useState } from "react";
@@ -23,6 +22,15 @@ export function useMapAdminLogic() {
         
         if (result.success && result.zones) {
           setZones(result.zones);
+          
+          // Добавляем зоны из БД в drawInstance
+          if (drawInstance.current && result.zones.length > 0) {
+            const geojson = {
+              type: "FeatureCollection",
+              features: result.zones
+            };
+            drawInstance.current.add(geojson);
+          }
         }
       } catch (error) {
         console.error('Error loading zones from DB:', error);
@@ -84,7 +92,17 @@ export function useMapAdminLogic() {
 
     // Обработка события удаления
     mapInstance.current.on("draw.delete", (e) => {
-      // Получаем текущие зоны из draw инструмента
+      const deletedFeatures = e.features;
+      
+      // Удаляем зоны из БД по ID
+      deletedFeatures.forEach(feature => {
+        const zoneId = feature.id; // ✅ Используем прямой ID из GeoJSON
+        if (zoneId) {
+          handleDeleteZone(zoneId);
+        }
+      });
+      
+      // Обновляем локальное состояние
       const currentZones = drawInstance.current.getAll().features;
       setZones(currentZones);
     });
@@ -144,9 +162,8 @@ export function useMapAdminLogic() {
       type: "fill",
       source: "zones-source",
       paint: {
-        "fill-color": "rgba(255, 0, 0, 0.3)", // Цвет заливки
-        "fill-outline-color": "rgba(212, 151, 18, 0.3)",
-        "fill-color": "rgba(0, 255, 0, 0.3)"
+        "fill-color": "rgba(0, 255, 0, 0.3)",
+        "fill-outline-color": "rgba(212, 151, 18, 0.3)"
       }
     });
   }, [zones]); // Добавляем зависимость от zones
@@ -178,6 +195,65 @@ export function useMapAdminLogic() {
     } catch (error) {
       console.error('Error saving zones:', error);
       // Можно добавить уведомление об ошибке
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Функция для удаления зоны из базы данных
+  const handleDeleteZone = async (zoneId) => {
+    if (!zoneId) {
+      console.warn('Zone ID is missing');
+      return;
+    }
+
+    const confirmed = window.confirm(`Вы уверены, что хотите удалить зону ${zoneId}?`);
+    if (!confirmed) return;
+
+    setIsSaving(true);
+    try {
+      console.log('Отправка запроса на удаление зоны:', zoneId);
+
+      const response = await fetch('/api/map/deleteZone', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: Number(zoneId) }), // ✅ Числовой ID
+      });
+
+      const result = await response.json();
+      console.log('Ответ от сервера:', result);
+
+      if (result.success) {
+        console.log('✅ Зона удалена из БД:', zoneId);
+
+        // Удаляем из локального состояния
+        setZones(prev => prev.filter(zone => 
+          zone.id !== zoneId && 
+          zone.properties?.id !== zoneId
+        ));
+
+        // Удаляем из drawInstance
+        if (drawInstance.current) {
+          const allFeatures = drawInstance.current.getAll();
+          const updatedFeatures = allFeatures.features.filter(
+            feature => feature.id !== zoneId && feature.properties?.id !== zoneId
+          );
+          drawInstance.current.set({
+            type: 'FeatureCollection',
+            features: updatedFeatures
+          });
+        }
+
+        alert('Зона успешно удалена!');
+      } else {
+        console.error('❌ Ошибка удаления зоны:', result.error);
+        alert('Ошибка при удалении зоны: ' + result.error);
+      }
+    } catch (error) {
+      console.error('❌ Ошибка сети:', error);
+      alert('Ошибка при удалении зоны: ' + error.message);
     } finally {
       setIsSaving(false);
     }
