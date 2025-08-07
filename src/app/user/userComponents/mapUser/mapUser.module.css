@@ -3,7 +3,6 @@
 .mapUserContainer {
   height: 100%; 
   width: 100%;
-  border: 2px solid red !important;
   position: relative;
 }
 

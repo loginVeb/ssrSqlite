@@ -3,9 +3,9 @@
   display: grid;
   grid-template-columns: repeat(48, 1fr);
   grid-template-rows: repeat(48,  1fr);
-    border: 8px solid rgb(230, 57, 201) !important;
+    border: 1px solid black!important;
     overflow: hidden;
 }
 .section {
-  grid-area: 3 / 3 / 45 / 45 !important;
+  grid-area: 1 / 1 / 49 / 49 !important;
 }
