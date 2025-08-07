@@ -79,7 +79,7 @@ export function useMapAdminLogic() {
         polygon: true,  // Включаем рисование полигонов (прямоугольники)
         trash: true,    // Кнопка удаления
       },
-      defaultMode: "draw_polygon", // Режим по умолчанию
+      defaultMode: "simple_select", // Режим выбора по умолчанию (рисование выключено)
     });
 
     mapInstance.current.addControl(drawInstance.current);
