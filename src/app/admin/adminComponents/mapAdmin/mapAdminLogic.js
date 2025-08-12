@@ -72,13 +72,10 @@ export function useMapAdminLogic() {
       zoom: 13,
     });
 
-    // Инициализация инструмента рисования с родными кнопками polygon и trash
+    // Инициализация инструмента рисования без стандартных кнопок
     drawInstance.current = new MapLibreDraw({
       displayControlsDefault: false,
-      controls: {
-        polygon: true,  // Включаем рисование полигонов (прямоугольники)
-        trash: true,    // Кнопка удаления
-      },
+      controls: {}, // Убираем все стандартные кнопки
       defaultMode: "simple_select", // Режим выбора по умолчанию (рисование выключено)
     });
 

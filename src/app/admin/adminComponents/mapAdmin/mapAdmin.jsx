@@ -9,46 +9,15 @@ export default function MapAdmin() {
   return (
     <div className={styles.mapAdminContainer}>
       <div className={styles.controlsPanel}>
-        <button 
-          onClick={() => drawInstance?.changeMode('draw_polygon')}
-          className={styles.controlButton}
-          title="Добавить зону (полигон)"
-        >
-          ➕ Зона
-        </button>
         
         <button 
-          onClick={() => drawInstance?.changeMode('draw_point')}
+          onClick={() => drawInstance?.current?.changeMode('draw_polygon')}
           className={styles.controlButton}
-          title="Добавить маркер"
+          title="Рисовать полигон"
         >
-          📍 Маркер
+          🔺 Полигон
         </button>
-        
-        <button 
-          onClick={() => drawInstance?.changeMode('simple_select')}
-          className={styles.controlButton}
-          title="Выбор и редактирование"
-        >
-          ✏️ Редактировать
-        </button>
-        
-        <button 
-          onClick={() => drawInstance?.changeMode('direct_select')}
-          className={styles.controlButton}
-          title="Перемещение вершин"
-        >
-          🔧 Вершины
-        </button>
-        
-        <button 
-          onClick={() => drawInstance?.deleteAll()}
-          className={styles.controlButton}
-          title="Очистить всё"
-        >
-          🗑️ Очистить
-        </button>
-        
+      
         <button 
           onClick={handleSaveZones} 
           className={styles.controlButton}
@@ -56,6 +25,38 @@ export default function MapAdmin() {
           title="Сохранить все зоны"
         >
           {isSaving ? '💾 Сохранение...' : '💾 Сохранить зоны'}
+        </button>
+
+         <button 
+          onClick={() => drawInstance?.current?.changeMode('simple_select')}
+          className={styles.controlButton}
+          title="Выбор и удаление"
+        >
+          🗑️ Удалить зону
+        </button>
+        
+        <button 
+          onClick={() => drawInstance?.current?.changeMode('draw_point')}
+          className={styles.controlButton}
+          title="Добавить маркер"
+        >
+          📍 Маркер
+        </button>
+        
+        <button 
+          onClick={() => drawInstance?.current?.changeMode('simple_select')}
+          className={styles.controlButton}
+          title="Выбор и редактирование"
+        >
+          ✏️ Редактировать
+        </button>
+        
+        <button 
+          onClick={() => drawInstance?.current?.changeMode('direct_select')}
+          className={styles.controlButton}
+          title="Перемещение вершин"
+        >
+          🔧 Вершины
         </button>
       </div>
       
