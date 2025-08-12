@@ -257,52 +257,39 @@ export function useMapAdminLogic() {
     }
   };
 
-  // Функция для удаления всех зон
-  const handleDeleteAll = async () => {
-    const confirmed = window.confirm('Вы уверены, что хотите удалить все зоны?');
-    if (!confirmed) return;
+  // Функция для удаления зоны по клику на карту
+  const handleDeleteZoneByClick = () => {
+    if (!drawInstance.current || !mapInstance.current) return;
 
-    setIsSaving(true);
-    try {
-      // Получаем все текущие зоны
-      const currentZones = drawInstance.current.getAll().features;
+    // Включаем режим выбора для клика по зоне
+    drawInstance.current.changeMode('simple_select');
+    
+    // Добавляем обработчик клика на карту
+    const handleClick = (e) => {
+      // Получаем выбранные зоны из drawInstance
+      const selectedFeatures = drawInstance.current.getSelected();
       
-      // Удаляем каждую зону из БД напрямую, без вызова handleDeleteZone
-      for (const zone of currentZones) {
-        const zoneId = zone.properties?.id || zone.id;
+      if (selectedFeatures.features.length > 0) {
+        // Получаем ID зоны из properties
+        const feature = selectedFeatures.features[0];
+        const zoneId = feature.properties?.id || feature.id;
+        
         if (zoneId) {
-          try {
-            const response = await fetch('/api/map/deleteZone', {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ id: Number(zoneId) }),
-            });
-
-            const result = await response.json();
-            if (!result.success) {
-              console.error('Ошибка удаления зоны:', result.error);
-            }
-          } catch (error) {
-            console.error('Ошибка при удалении зоны:', error);
-          }
+          handleDeleteZone(zoneId);
+        } else {
+          alert('Не удалось определить ID зоны. Попробуйте выбрать зону вручную.');
         }
+      } else {
+        alert('Пожалуйста, выберите зону для удаления');
       }
       
-      // Очищаем все зоны с карты
-      drawInstance.current.deleteAll();
-      setZones([]);
-      
-      alert('Все зоны успешно удалены!');
-    } catch (error) {
-      console.error('Ошибка при удалении зон:', error);
-      alert('Ошибка при удалении зон: ' + error.message);
-    } finally {
-      setIsSaving(false);
-    }
+      // Удаляем обработчик после клика
+      mapInstance.current.off('click', handleClick);
+    };
+    
+    mapInstance.current.once('click', handleClick);
   };
 
   // Возвращаем объект с mapContainer, функцией сохранения и drawInstance
-  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteAll };
+  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick };
 }

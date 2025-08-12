@@ -4,7 +4,7 @@ import styles from "./mapAdmin.module.css";
 import { useMapAdminLogic } from "./mapAdminLogic";
 
 export default function MapAdmin() {
-  const { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteAll } = useMapAdminLogic();
+  const { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick } = useMapAdminLogic();
 
   return (
     <div className={styles.mapAdminContainer}>
@@ -28,9 +28,9 @@ export default function MapAdmin() {
         </button>
 
          <button 
-          onClick={handleDeleteAll}
+          onClick={handleDeleteZoneByClick}
           className={styles.controlButton}
-          title="Удалить все зоны"
+          title="Удалить зону"
         >
           🗑️ Удалить зону
         </button>
