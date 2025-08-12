@@ -4,7 +4,7 @@ import styles from "./mapAdmin.module.css";
 import { useMapAdminLogic } from "./mapAdminLogic";
 
 export default function MapAdmin() {
-  const { mapContainer, handleSaveZones, isSaving, drawInstance } = useMapAdminLogic();
+  const { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteAll } = useMapAdminLogic();
 
   return (
     <div className={styles.mapAdminContainer}>
@@ -28,9 +28,9 @@ export default function MapAdmin() {
         </button>
 
          <button 
-          onClick={() => drawInstance?.current?.changeMode('simple_select')}
+          onClick={handleDeleteAll}
           className={styles.controlButton}
-          title="Выбор и удаление"
+          title="Удалить все зоны"
         >
           🗑️ Удалить зону
         </button>
