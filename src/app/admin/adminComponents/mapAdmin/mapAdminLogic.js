@@ -260,6 +260,6 @@ export function useMapAdminLogic() {
     }
   };
 
-  // Возвращаем объект с mapContainer и функцией сохранения
-  return { mapContainer, handleSaveZones, isSaving };
+  // Возвращаем объект с mapContainer, функцией сохранения и drawInstance
+  return { mapContainer, handleSaveZones, isSaving, drawInstance };
 }
