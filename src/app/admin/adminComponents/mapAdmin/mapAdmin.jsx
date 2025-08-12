@@ -48,17 +48,18 @@ export default function MapAdmin() {
         >
           🗑️ Очистить
         </button>
+        
+        <button 
+          onClick={handleSaveZones} 
+          className={styles.controlButton}
+          disabled={isSaving}
+          title="Сохранить все зоны"
+        >
+          {isSaving ? '💾 Сохранение...' : '💾 Сохранить зоны'}
+        </button>
       </div>
       
       <div ref={mapContainer} className={styles.mapInnerContainer}/>
-      
-      <button 
-        onClick={handleSaveZones} 
-        className={styles.saveButton}
-        disabled={isSaving}
-      >
-        {isSaving ? 'Сохранение...' : 'Сохранить зоны'}
-      </button>
     </div>
   );
 }

@@ -72,7 +72,7 @@ export function useMapAdminLogic() {
       zoom: 13,
     });
 
-    // Инициализация инструмента рисования
+    // Инициализация инструмента рисования с родными кнопками polygon и trash
     drawInstance.current = new MapLibreDraw({
       displayControlsDefault: false,
       controls: {
