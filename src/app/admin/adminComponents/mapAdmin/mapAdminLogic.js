@@ -2,17 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
-import MapLibreDraw from "maplibre-gl-draw"; // Для рисования
+import MapLibreDraw from "maplibre-gl-draw";
 import "maplibre-gl/dist/maplibre-gl.css";
-import "maplibre-gl-draw/dist/mapbox-gl-draw.css"; // Стили для инструментов
+import "maplibre-gl-draw/dist/mapbox-gl-draw.css";
 
 export function useMapAdminLogic() {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
-  const drawInstance = useRef(null); // Храним экземпляр рисования
-  const [zones, setZones] = useState([]); // Сохранённые зоны
-  const [isSaving, setIsSaving] = useState(false); // Состояние сохранения
-  const [isDeleteMode, setIsDeleteMode] = useState(false); // Режим удаления
+  const drawInstance = useRef(null);
+  const [zones, setZones] = useState([]);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Загрузка зон из базы данных при инициализации
   useEffect(() => {
@@ -73,105 +72,91 @@ export function useMapAdminLogic() {
       zoom: 13,
     });
 
-    // Инициализация инструмента рисования без стандартных кнопок
+    // Инициализация инструмента рисования
     drawInstance.current = new MapLibreDraw({
       displayControlsDefault: false,
-      controls: {}, // Убираем все стандартные кнопки
-      defaultMode: "simple_select", // Режим выбора по умолчанию (рисование выключено)
+      controls: {},
+      defaultMode: "simple_select",
     });
 
     mapInstance.current.addControl(drawInstance.current);
 
-    // Обработка события завершения рисования
+    // Обработка событий рисования
     mapInstance.current.on("draw.create", (e) => {
       const features = e.features;
-      setZones((prev) => [...prev, ...features]); // Добавляем в состояние
+      setZones((prev) => [...prev, ...features]);
     });
 
-    // Обработка события удаления
     mapInstance.current.on("draw.delete", (e) => {
       const deletedFeatures = e.features;
-      
-      // Удаляем зоны из БД по ID
       deletedFeatures.forEach(feature => {
-        // Используем ID из properties или напрямую из feature
-        const zoneId = feature.properties?.id || feature.id;
-        if (zoneId) {
+        const zoneId = feature.properties?.id;
+        if (zoneId && typeof zoneId === 'number') {
           handleDeleteZone(zoneId);
         }
       });
-      
-      // Обновляем локальное состояние
-      const currentZones = drawInstance.current.getAll().features;
-      setZones(currentZones);
     });
 
-    // Обработка события редактирования
     mapInstance.current.on("draw.update", (e) => {
       const currentZones = drawInstance.current.getAll().features;
       setZones(currentZones);
     });
-  }, []); // Пустой массив зависимостей для useEffect
+  }, []);
 
-  // Отдельный useEffect для обработки zones
-  useEffect(() => {
-    if (!mapInstance.current) return;
-
-    // Если зон нет, удаляем источники и слои если они существуют
-    if (zones.length === 0) {
-      // Сначала удаляем слой, затем источник
-      if (mapInstance.current.getLayer("zones-layer")) {
-        mapInstance.current.removeLayer("zones-layer");
-      }
-      if (mapInstance.current.getSource("zones-source")) {
-        mapInstance.current.removeSource("zones-source");
-      }
+  // Функция для удаления зоны из базы данных
+  const handleDeleteZone = async (zoneId) => {
+    if (!zoneId || typeof zoneId !== 'number') {
+      console.warn('Invalid zone ID:', zoneId);
       return;
     }
 
-    // Удаляем старые источники и слои (в правильном порядке)
-    if (mapInstance.current.getLayer("zones-layer")) {
-      mapInstance.current.removeLayer("zones-layer");
-    }
-    if (mapInstance.current.getSource("zones-source")) {
-      mapInstance.current.removeSource("zones-source");
-    }
+    const confirmed = window.confirm(`Вы уверены, что хотите удалить зону ${zoneId}?`);
+    if (!confirmed) return;
 
-    // Создаём GeoJSON из зон
-    const geojson = {
-      type: "FeatureCollection",
-      features: zones.map((zone) => ({
-        type: "Feature",
-        geometry: zone.geometry,
-        properties: {
-          id: zone.id,
-          name: "Зона", // Можно добавить пользовательские метки
+    try {
+      const response = await fetch('/api/map/deleteZone', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      })),
-    };
+        body: JSON.stringify({ id: zoneId }),
+      });
 
-    // Добавляем источник и слой для зон
-    mapInstance.current.addSource("zones-source", {
-      type: "geojson",
-      data: geojson,
-    });
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('✅ Зона удалена из БД:', zoneId);
+        
+        // Удаляем из локального состояния
+        setZones(prev => prev.filter(zone => {
+          const zoneDbId = zone.properties?.id || zone.id;
+          return zoneDbId !== zoneId;
+        }));
 
-    mapInstance.current.addLayer({
-      id: "zones-layer",
-      type: "fill",
-      source: "zones-source",
-      paint: {
-        "fill-color": "rgba(0, 255, 0, 0.3)",
-        "fill-outline-color": "rgba(212, 151, 18, 0.3)"
+        // Удаляем из drawInstance
+        if (drawInstance.current) {
+          const allFeatures = drawInstance.current.getAll();
+          const updatedFeatures = allFeatures.features.filter(feature => {
+            const featureDbId = feature.properties?.id || feature.id;
+            return featureDbId !== zoneId;
+          });
+          drawInstance.current.set({
+            type: 'FeatureCollection',
+            features: updatedFeatures
+          });
+        }
+      } else {
+        console.error('❌ Ошибка удаления зоны:', result.error);
       }
-    });
-  }, [zones]); // Добавляем зависимость от zones
+    } catch (error) {
+      console.error('❌ Ошибка сети:', error);
+    }
+  };
 
   // Функция для сохранения зон в базе данных
   const handleSaveZones = async () => {
     setIsSaving(true);
     try {
-      // Получаем все текущие зоны из инструмента рисования
       const currentZones = drawInstance.current.getAll().features;
       
       const response = await fetch('/api/map/saveZones', {
@@ -181,78 +166,41 @@ export function useMapAdminLogic() {
         },
         body: JSON.stringify({ zones: currentZones }),
       });
-      
+
       const result = await response.json();
       
       if (result.success) {
         console.log('Zones saved successfully');
-        // Можно добавить уведомление об успешном сохранении
+        
+        // Обновляем локальные зоны с новыми ID из базы данных
+        if (result.zones && result.zones.length > 0) {
+          const updatedZones = currentZones.map((zone, index) => {
+            const savedZone = result.zones[index];
+            return {
+              ...zone,
+              properties: {
+                ...zone.properties,
+                id: savedZone.id
+              }
+            };
+          });
+          
+          setZones(updatedZones);
+          
+          // Обновляем drawInstance с новыми ID
+          if (drawInstance.current) {
+            const geojson = {
+              type: "FeatureCollection",
+              features: updatedZones
+            };
+            drawInstance.current.set(geojson);
+          }
+        }
       } else {
         console.error('Error saving zones:', result.error);
-        // Можно добавить уведомление об ошибке
       }
     } catch (error) {
       console.error('Error saving zones:', error);
-      // Можно добавить уведомление об ошибке
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  // Функция для удаления зоны из базы данных
-  const handleDeleteZone = async (zoneId) => {
-    if (!zoneId) {
-      console.warn('Zone ID is missing');
-      return;
-    }
-
-    const confirmed = window.confirm(`Вы уверены, что хотите удалить зону ${zoneId}?`);
-    if (!confirmed) return;
-
-    setIsSaving(true);
-    try {
-      console.log('Отправка запроса на удаление зоны:', zoneId);
-
-      const response = await fetch('/api/map/deleteZone', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: Number(zoneId) }), // ✅ Числовой ID
-      });
-
-      const result = await response.json();
-      console.log('Ответ от сервера:', result);
-
-      if (result.success) {
-        console.log('✅ Зона удалена из БД:', zoneId);
-
-        // Удаляем из локального состояния
-        setZones(prev => prev.filter(zone => 
-          zone.id !== zoneId && 
-          zone.properties?.id !== zoneId
-        ));
-
-        // Удаляем из drawInstance
-        if (drawInstance.current) {
-          const allFeatures = drawInstance.current.getAll();
-          const updatedFeatures = allFeatures.features.filter(
-            feature => feature.id !== zoneId && feature.properties?.id !== zoneId
-          );
-          drawInstance.current.set({
-            type: 'FeatureCollection',
-            features: updatedFeatures
-          });
-        }
-
-        alert('Зона успешно удалена!');
-      } else {
-        console.error('❌ Ошибка удаления зоны:', result.error);
-        alert('Ошибка при удалении зоны: ' + result.error);
-      }
-    } catch (error) {
-      console.error('❌ Ошибка сети:', error);
-      alert('Ошибка при удалении зоны: ' + error.message);
     } finally {
       setIsSaving(false);
     }
@@ -262,35 +210,29 @@ export function useMapAdminLogic() {
   const handleDeleteZoneByClick = () => {
     if (!drawInstance.current || !mapInstance.current) return;
 
-    // Включаем режим выбора для клика по зоне
     drawInstance.current.changeMode('simple_select');
     
-    // Добавляем обработчик клика на карту
     const handleClick = (e) => {
-      // Получаем выбранные зоны из drawInstance
       const selectedFeatures = drawInstance.current.getSelected();
       
       if (selectedFeatures.features.length > 0) {
-        // Получаем ID зоны из properties
         const feature = selectedFeatures.features[0];
-        const zoneId = feature.properties?.id || feature.id;
+        const zoneId = feature.properties?.id;
         
-        if (zoneId) {
+        if (zoneId && typeof zoneId === 'number') {
           handleDeleteZone(zoneId);
         } else {
-          alert('Не удалось определить ID зоны. Попробуйте выбрать зону вручную.');
+          alert('Эта зона еще не сохранена в базе данных. Сначала сохраните зоны.');
         }
       } else {
         alert('Пожалуйста, выберите зону для удаления');
       }
       
-      // Удаляем обработчик после клика
       mapInstance.current.off('click', handleClick);
     };
     
     mapInstance.current.once('click', handleClick);
   };
 
-  // Возвращаем объект с mapContainer, функцией сохранения и drawInstance
-  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick, isDeleteMode };
+  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick };
 }
