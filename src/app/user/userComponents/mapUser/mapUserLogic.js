@@ -13,7 +13,7 @@ export function useMapUserLogic() {
   useEffect(() => {
     const loadZonesFromDB = async () => {
       try {
-        const response = await fetch('/api/map/loadZones');
+        const response = await fetch('/admin/api/map/loadZones');
         const result = await response.json();
 
         if (result.success && result.zones) {

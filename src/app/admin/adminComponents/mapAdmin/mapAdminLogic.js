@@ -17,7 +17,7 @@ export function useMapAdminLogic() {
   useEffect(() => {
     const loadZonesFromDB = async () => {
       try {
-        const response = await fetch('/api/map/loadZones');
+        const response = await fetch('/admin/api/map/loadZones');
         const result = await response.json();
         
         if (result.success && result.zones) {
@@ -114,7 +114,7 @@ export function useMapAdminLogic() {
     if (!confirmed) return;
 
     try {
-      const response = await fetch('/api/map/deleteZone', {
+      const response = await fetch('/admin/api/map/deleteZone', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export function useMapAdminLogic() {
     try {
       const currentZones = drawInstance.current.getAll().features;
       
-      const response = await fetch('/api/map/saveZones', {
+      const response = await fetch('/admin/api/map/saveZones', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
