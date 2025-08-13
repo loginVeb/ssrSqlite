@@ -43,5 +43,5 @@ export function useMapInitialization(mapContainer, mapInstance, drawInstance) {
     });
 
     mapInstance.current.addControl(drawInstance.current);
-  }, []);
+  }, [mapContainer, mapInstance, drawInstance]);
 }

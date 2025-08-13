@@ -3,8 +3,7 @@ import { useMapInitialization } from "./useMapInitialization";
 import { useZoneManagement } from "./useZoneManagement";
 import { useDrawingHandlers } from "./useDrawingHandlers";
 import { useDeleteHandlers } from "./useDeleteHandlers";
-import { useSaveHandlers } from "./useSaveHandlers";
-import { loadZonesFromDB, saveZonesToDB, deleteZoneFromDB } from "./api";
+import { useSaveZones } from "./useSaveHandlers";
 
 export function useMapAdminLogic() {
   const mapContainer = useRef(null);
@@ -14,8 +13,7 @@ export function useMapAdminLogic() {
 
   // Использование всех хуков
   useMapInitialization(mapContainer, mapInstance, drawInstance);
-  
-  const { updateZonesWithIds } = useZoneManagement(drawInstance, zones, setZones);
+  useZoneManagement(drawInstance, zones, setZones);
   useDrawingHandlers(mapInstance, drawInstance, zones, setZones);
   
   const { handleDeleteZone, handleDeleteZoneByClick } = useDeleteHandlers(
@@ -25,11 +23,10 @@ export function useMapAdminLogic() {
     setZones
   );
   
-  const { handleSaveZones, isSaving } = useSaveHandlers(
+  const { handleSaveZones, isSaving } = useSaveZones(
     drawInstance, 
     zones, 
-    setZones, 
-    updateZonesWithIds
+    setZones
   );
 
   return {

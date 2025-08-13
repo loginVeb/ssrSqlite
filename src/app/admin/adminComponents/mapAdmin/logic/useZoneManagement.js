@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { loadZonesFromDB } from './useApiCalls';
+import { loadZonesFromDB } from './api';
 
 export function useZoneManagement(drawInstance, zones, setZones) {
   // Загрузка зон из базы данных при инициализации
@@ -27,33 +27,4 @@ export function useZoneManagement(drawInstance, zones, setZones) {
 
     loadZones();
   }, [drawInstance, setZones]);
-
-  // Функция для обновления локальных зон с новыми ID из базы данных
-  const updateZonesWithIds = (currentZones, savedZones) => {
-    if (savedZones && savedZones.length > 0) {
-      const updatedZones = currentZones.map((zone, index) => {
-        const savedZone = savedZones[index];
-        return {
-          ...zone,
-          properties: {
-            ...zone.properties,
-            id: savedZone.id
-          }
-        };
-      });
-      
-      setZones(updatedZones);
-      
-      // Обновляем drawInstance с новыми ID
-      if (drawInstance.current) {
-        const geojson = {
-          type: "FeatureCollection",
-          features: updatedZones
-        };
-        drawInstance.current.set(geojson);
-      }
-    }
-  };
-
-  return { updateZonesWithIds };
 }
