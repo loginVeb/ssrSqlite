@@ -19,6 +19,10 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers) {
           body: JSON.stringify({ x: lng, y: lat }),
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
         
         if (result.success) {
@@ -36,7 +40,7 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers) {
           console.error('❌ Ошибка добавления маркера:', result.error);
         }
       } catch (error) {
-        console.error('❌ Ошибка сети при добавлении маркера:', error);
+        console.error('❌ Ошибка при добавлении маркера:', error);
       }
     };
 
