@@ -9,26 +9,42 @@
   width: 100%;
 }
 
-.saveButton {
+.controlsPanel {
   position: absolute;
   top: 10px;
-  right: 50px;
-  z-index: 10; /* Увеличен z-index, чтобы кнопка была выше элементов maplibre-gl-draw */
-  padding: 10px 15px;
-  background-color: #4CAF50;
-  color: white;
+  left: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.controlButton {
+  padding: 8px 12px;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: rgba(173, 216, 230, 0.7); /* светло-голубой прозрачный */
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.saveButton:hover:not(:disabled) {
-  background-color: #45a049;
+.controlButton:hover {
+  background-color: rgba(173, 216, 230, 0.9);
+  transform: translateY(-1px);
 }
 
-.saveButton:disabled {
-  background-color: #cccccc;
+.controlButton:active,
+.controlButton:focus {
+  background-color: rgba(255, 182, 193, 0.7); /* светло-красный прозрачный */
+  outline: none;
+  transform: translateY(0);
+}
+
+.controlButton:disabled {
+  background-color: rgba(200, 200, 200, 0.5);
   cursor: not-allowed;
+  opacity: 0.6;
 }
-

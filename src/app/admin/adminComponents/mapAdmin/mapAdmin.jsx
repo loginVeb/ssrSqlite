@@ -43,21 +43,6 @@ export default function MapAdmin() {
           📍 Маркер
         </button>
         
-        <button 
-          onClick={() => drawInstance?.current?.changeMode('simple_select')}
-          className={styles.controlButton}
-          title="Выбор и редактирование"
-        >
-          ✏️ Редактировать
-        </button>
-        
-        <button 
-          onClick={() => drawInstance?.current?.changeMode('direct_select')}
-          className={styles.controlButton}
-          title="Перемещение вершин"
-        >
-          🔧 Вершины
-        </button>
       </div>
       
       <div ref={mapContainer} className={styles.mapInnerContainer}/>

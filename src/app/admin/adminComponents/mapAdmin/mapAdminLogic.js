@@ -12,6 +12,7 @@ export function useMapAdminLogic() {
   const drawInstance = useRef(null); // Храним экземпляр рисования
   const [zones, setZones] = useState([]); // Сохранённые зоны
   const [isSaving, setIsSaving] = useState(false); // Состояние сохранения
+  const [isDeleteMode, setIsDeleteMode] = useState(false); // Режим удаления
 
   // Загрузка зон из базы данных при инициализации
   useEffect(() => {
@@ -291,5 +292,5 @@ export function useMapAdminLogic() {
   };
 
   // Возвращаем объект с mapContainer, функцией сохранения и drawInstance
-  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick };
+  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick, isDeleteMode };
 }
