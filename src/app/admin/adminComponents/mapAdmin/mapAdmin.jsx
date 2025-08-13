@@ -4,7 +4,16 @@ import styles from "./mapAdmin.module.css";
 import { useMapAdminLogic } from "./logic/useMapAdminLogic";
 
 export default function MapAdmin() {
-  const { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick } = useMapAdminLogic();
+  const { 
+    mapContainer, 
+    handleSaveZones, 
+    isSaving, 
+    drawInstance, 
+    handleDeleteZoneByClick,
+    isAddingMarkers,
+    setIsAddingMarkers,
+    markers
+  } = useMapAdminLogic();
 
   return (
     <div className={styles.mapAdminContainer}>
@@ -27,7 +36,7 @@ export default function MapAdmin() {
           {isSaving ? '💾 Сохранение...' : '💾 Сохранить зоны'}
         </button>
 
-         <button 
+        <button 
           onClick={handleDeleteZoneByClick}
           className={styles.controlButton}
           title="Удалить зону"
@@ -36,11 +45,11 @@ export default function MapAdmin() {
         </button>
         
         <button 
-          onClick={() => drawInstance?.current?.changeMode('draw_point')}
-          className={styles.controlButton}
-          title="Добавить маркер"
+          onClick={() => setIsAddingMarkers(!isAddingMarkers)}
+          className={`${styles.controlButton} ${isAddingMarkers ? styles.active : ''}`}
+          title={isAddingMarkers ? 'Отменить добавление маркеров' : 'Добавить маркер'}
         >
-          📍 Маркер
+          {isAddingMarkers ? '❌ Отмена' : '📍 Добавить маркер'}
         </button>
         
       </div>

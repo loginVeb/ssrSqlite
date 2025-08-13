@@ -4,12 +4,14 @@ import { useZoneManagement } from "./useZoneManagement";
 import { useDrawingHandlers } from "./useDrawingHandlers";
 import { useDeleteHandlers } from "./useDeleteHandlers";
 import { useSaveZones } from "./useSaveHandlers";
+import { useMarkerHandlers } from "./useMarkerHandlers";
 
 export function useMapAdminLogic() {
   const mapContainer = useRef(null);
   const mapInstance = useRef(null);
   const drawInstance = useRef(null);
   const [zones, setZones] = useState([]);
+  const [isAddingMarkers, setIsAddingMarkers] = useState(false);
 
   // Использование всех хуков
   useMapInitialization(mapContainer, mapInstance, drawInstance);
@@ -29,11 +31,16 @@ export function useMapAdminLogic() {
     setZones
   );
 
+  const { markers } = useMarkerHandlers(mapInstance, isAddingMarkers);
+
   return {
     mapContainer,
     handleSaveZones,
     isSaving,
     drawInstance,
-    handleDeleteZoneByClick
+    handleDeleteZoneByClick,
+    isAddingMarkers,
+    setIsAddingMarkers,
+    markers
   };
 }
