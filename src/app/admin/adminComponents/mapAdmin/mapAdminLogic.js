@@ -12,32 +12,44 @@ export function useMapAdminLogic() {
   const drawInstance = useRef(null);
   const [zones, setZones] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [markers, setMarkers] = useState([]);
+  const [isAddingMarker, setIsAddingMarker] = useState(false);
 
-  // Загрузка зон из базы данных при инициализации
+  // Загрузка зон и маркеров из базы данных при инициализации
   useEffect(() => {
-    const loadZonesFromDB = async () => {
+    const loadDataFromDB = async () => {
       try {
-      const response = await fetch('/admin/api/map/zone/loadZones');
-        const result = await response.json();
+        // Загрузка зон
+        const zonesResponse = await fetch('/admin/api/map/zone/loadZones');
+        const zonesResult = await zonesResponse.json();
         
-        if (result.success && result.zones) {
-          setZones(result.zones);
+        if (zonesResult.success && zonesResult.zones) {
+          setZones(zonesResult.zones);
           
           // Добавляем зоны из БД в drawInstance
-          if (drawInstance.current && result.zones.length > 0) {
+          if (drawInstance.current && zonesResult.zones.length > 0) {
             const geojson = {
               type: "FeatureCollection",
-              features: result.zones
+              features: zonesResult.zones
             };
             drawInstance.current.add(geojson);
           }
         }
+
+        // Загрузка маркеров
+        const markersResponse = await fetch('/admin/api/map/marker/loadMarkers');
+        const markersResult = await markersResponse.json();
+        
+        if (markersResult.success && markersResult.markers) {
+          setMarkers(markersResult.markers);
+          console.log('✅ Маркеры загружены:', markersResult.markers.length);
+        }
       } catch (error) {
-        console.error('Error loading zones from DB:', error);
+        console.error('Error loading data from DB:', error);
       }
     };
 
-    loadZonesFromDB();
+    loadDataFromDB();
   }, []);
 
   useEffect(() => {
@@ -80,6 +92,17 @@ export function useMapAdminLogic() {
     });
 
     mapInstance.current.addControl(drawInstance.current);
+
+    // Отображение существующих маркеров после загрузки карты
+    mapInstance.current.on('load', () => {
+      console.log('🗺️ Карта загружена, отображаем маркеры...');
+      markers.forEach(marker => {
+        new maplibregl.Marker({ color: '#FF0000' })
+          .setLngLat([marker.x, marker.y])
+          .setPopup(new maplibregl.Popup().setText(`Маркер #${marker.id}`))
+          .addTo(mapInstance.current);
+      });
+    });
 
     // Обработка событий рисования
     mapInstance.current.on("draw.create", (e) => {
@@ -234,5 +257,59 @@ export function useMapAdminLogic() {
     mapInstance.current.once('click', handleClick);
   };
 
-  return { mapContainer, handleSaveZones, isSaving, drawInstance, handleDeleteZoneByClick };
+  // Функция для добавления маркера по клику на карту
+  const handleAddMarker = () => {
+    if (!mapInstance.current) return;
+
+    console.log('🎯 Режим добавления маркера активирован');
+    setIsAddingMarker(true);
+
+    const handleClick = async (e) => {
+      const { lng, lat } = e.lngLat;
+      console.log('📍 Клик на карте:', { lng, lat });
+
+      try {
+        const response = await fetch('/admin/api/map/marker/addMarker', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ x: lng, y: lat }),
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          console.log('✅ Маркер добавлен:', result.marker);
+          
+          // Добавляем маркер на карту
+          new maplibregl.Marker({ color: '#FF0000' })
+            .setLngLat([lng, lat])
+            .setPopup(new maplibregl.Popup().setText(`Маркер #${result.marker.id}`))
+            .addTo(mapInstance.current);
+
+          setMarkers(prev => [...prev, result.marker]);
+        } else {
+          console.error('❌ Ошибка добавления маркера:', result.error);
+        }
+      } catch (error) {
+        console.error('❌ Ошибка сети при добавлении маркера:', error);
+      }
+
+      setIsAddingMarker(false);
+      mapInstance.current.off('click', handleClick);
+    };
+
+    mapInstance.current.once('click', handleClick);
+  };
+
+  return { 
+    mapContainer, 
+    handleSaveZones, 
+    isSaving, 
+    drawInstance, 
+    handleDeleteZoneByClick,
+    handleAddMarker,
+    isAddingMarker
+  };
 }
