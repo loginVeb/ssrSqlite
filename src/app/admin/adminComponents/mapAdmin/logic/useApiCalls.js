@@ -1,7 +1,7 @@
 // API вызовы для работы с зонами
 export async function loadZonesFromDB() {
   try {
-    const response = await fetch('/admin/api/map/loadZones');
+    const response = await fetch('/admin/api/map/zone/loadZones');
     const result = await response.json();
     return result;
   } catch (error) {
@@ -12,7 +12,7 @@ export async function loadZonesFromDB() {
 
 export async function saveZonesToDB(zones) {
   try {
-    const response = await fetch('/admin/api/map/saveZones', {
+    const response = await fetch('/admin/api/map/zone/saveZones', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export async function saveZonesToDB(zones) {
 
 export async function deleteZoneFromDB(zoneId) {
   try {
-    const response = await fetch('/admin/api/map/deleteZone', {
+    const response = await fetch('/admin/api/map/zone/deleteZone', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
