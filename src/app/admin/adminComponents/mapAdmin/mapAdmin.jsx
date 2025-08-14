@@ -1,7 +1,7 @@
 'use client'
 
 import styles from "./mapAdmin.module.css";
-import { useMapAdminLogic } from "./useMapAdminLogic";
+import { useMapAdminLogic } from "./logic/useMapAdminLogic";
 
 export default function MapAdmin() {
   const { 
