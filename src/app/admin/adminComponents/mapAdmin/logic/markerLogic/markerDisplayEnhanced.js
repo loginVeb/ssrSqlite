@@ -40,15 +40,30 @@ export function displayMarkers(mapInstance, markers, markersRef) {
       try {
         // Создаем кастомный элемент маркера для лучшей видимости
         const markerElement = document.createElement('div');
-        markerElement.style.width = '24px';
-        markerElement.style.height = '24px';
+        markerElement.style.width = '30px';
+        markerElement.style.height = '30px';
         markerElement.style.borderRadius = '50%';
         markerElement.style.backgroundColor = '#FF0000';
-        markerElement.style.border = '3px solid white';
-        markerElement.style.boxShadow = '0 0 8px rgba(255,0,0,0.9)';
-        markerElement.style.zIndex = '1000';
-        markerElement.style.position = 'relative';
+        markerElement.style.border = '4px solid white';
+        markerElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(255,0,0,0.6)';
+        markerElement.style.position = 'absolute';
+        markerElement.style.top = '0';
+        markerElement.style.left = '0';
         markerElement.style.cursor = 'pointer';
+        markerElement.style.transform = 'translate(-50%, -50%)';
+        markerElement.style.pointerEvents = 'auto';
+        
+        // Добавляем внутреннюю точку для лучшей видимости
+        const innerDot = document.createElement('div');
+        innerDot.style.width = '10px';
+        innerDot.style.height = '10px';
+        innerDot.style.borderRadius = '50%';
+        innerDot.style.backgroundColor = 'white';
+        innerDot.style.position = 'absolute';
+        innerDot.style.top = '50%';
+        innerDot.style.left = '50%';
+        innerDot.style.transform = 'translate(-50%, -50%)';
+        markerElement.appendChild(innerDot);
 
         const mapMarker = new maplibregl.Marker({
           element: markerElement,
