@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import maplibregl from "maplibre-gl";
 
 export function useMarkerHandlers(mapInstance, isAddingMarkers) {
   const [markers, setMarkers] = useState([]);
@@ -40,7 +41,7 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers) {
           console.error('❌ Ошибка добавления маркера:', result.error);
         }
       } catch (error) {
-        console.error('❌ Ошибка при добавлении маркера:', error);
+        console.error('❌ Ошибка при добавлении маркере:', error);
       }
     };
 
