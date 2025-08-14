@@ -6,6 +6,7 @@ import { useDrawingHandlers } from "./useDrawingHandlers";
 import { useDeleteHandlers } from "./useDeleteHandlers";
 import { useSaveZones } from "./useSaveHandlers";
 import { useMarkerHandlers } from "./useMarkerHandlers";
+import { useMarkerDisplay } from "./useMarkerDisplay";
 
 export function useMapAdminLogic() {
   const mapContainer = useRef(null);
@@ -23,6 +24,9 @@ export function useMapAdminLogic() {
       
       if (data.success && data.markers) {
         console.log('✅ Загружено маркеров из БД:', data.markers.length);
+        data.markers.forEach(marker => {
+          console.log('Координаты маркера:', marker.x, marker.y); // Логирование координат
+        });
         
         // Отображаем маркеры на карте
         if (mapInstance.current) {
@@ -60,7 +64,8 @@ export function useMapAdminLogic() {
     setZones
   );
 
-  const { markers: newMarkers } = useMarkerHandlers(mapInstance, isAddingMarkers);
+  const { markers: newMarkers } = useMarkerHandlers(mapInstance, isAddingMarkers);  
+  useMarkerDisplay(mapInstance, markers); // Передаем маркеры в useMarkerDisplay
 
   // Загрузка маркеров при монтировании
   useEffect(() => {
