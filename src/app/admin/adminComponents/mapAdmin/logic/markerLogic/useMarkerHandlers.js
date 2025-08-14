@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import maplibregl from "maplibre-gl";
 
-export function useMarkerHandlers(mapInstance, isAddingMarkers) {
+export function useMarkerHandlers(mapInstance, isAddingMarkers, markersRef) {
   const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
@@ -35,19 +35,32 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers) {
           console.log('✅ Маркер добавлен в БД:', result.marker);
           console.log('🎯 Создаю маркер на карте:', [result.marker.x, result.marker.y]);
           
-          // Отображаем маркер на карте
-          const newMarker = new maplibregl.Marker({ 
-            color: '#FF0000',
-            scale: 1.5
-          })
-            .setLngLat([result.marker.x, result.marker.y])
-            .setPopup(new maplibregl.Popup().setText(`Маркер #${result.marker.id}`))
-            .addTo(mapInstance.current);
+            // Создаем HTML-элемент для маркера с эмодзи 📍
+            const markerElement = document.createElement('div');
+            markerElement.innerHTML = '📍';
+            markerElement.style.fontSize = '24px';
+            markerElement.style.cursor = 'pointer';
+            markerElement.style.userSelect = 'none';
+            markerElement.style.pointerEvents = 'auto';
+            
+            const newMarker = new maplibregl.Marker({
+              element: markerElement,
+              anchor: 'bottom',
+              offset: [0, -12]
+            })
+              .setLngLat([result.marker.x, result.marker.y])
+              .setPopup(new maplibregl.Popup().setText(`Маркер #${result.marker.id}`))
+              .addTo(mapInstance.current);
 
           console.log('✅ Маркер создан и добавлен на карту:', newMarker);
           
-          // Добавляем в состояние
+          // Добавляем в состояние и в markersRef
           setMarkers(prev => [...prev, { ...result.marker, mapMarker: newMarker }]);
+          
+          // Добавляем маркер в markersRef для синхронизации
+          if (markersRef.current) {
+            markersRef.current.push(newMarker);
+          }
         } else {
           console.error('❌ Ошибка добавления маркера:', result.error);
         }

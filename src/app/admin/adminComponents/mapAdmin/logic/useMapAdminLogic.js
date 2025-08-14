@@ -35,10 +35,18 @@ export function useMapAdminLogic() {
         // Отображаем маркеры на карте
         if (mapInstance.current) {
           data.markers.forEach(marker => {
-            const mapMarker = new maplibregl.Marker({ 
-              color: '#FF0000',
-              scale: 1.5,
-              zIndex: 1000
+            // Создаем HTML-элемент для маркера с эмодзи 📍
+            const markerElement = document.createElement('div');
+            markerElement.innerHTML = '📍';
+            markerElement.style.fontSize = '24px';
+            markerElement.style.cursor = 'pointer';
+            markerElement.style.userSelect = 'none';
+            markerElement.style.pointerEvents = 'auto';
+            
+            const mapMarker = new maplibregl.Marker({
+              element: markerElement,
+              anchor: 'bottom',
+              offset: [0, -12]
             })
               .setLngLat([marker.x, marker.y])
               .setPopup(new maplibregl.Popup().setText(`Маркер #${marker.id}`))
@@ -73,12 +81,12 @@ export function useMapAdminLogic() {
 
   const { markers: newMarkers } = useMarkerHandlers(mapInstance, isAddingMarkers, markersRef);
 
-  // Загрузка маркеров при монтировании
+  // Загрузка маркеров при монтировании и при изменении состояния
   useEffect(() => {
     if (mapInstance.current) {
       loadMarkers();
     }
-  }, [mapInstance.current]);
+  }, [mapInstance.current, isAddingMarkers]);
 
   return {
     mapContainer,
