@@ -28,33 +28,21 @@ export function useMapAdminLogic() {
       if (data.success && data.markers) {
         console.log('✅ Загружено маркеров из БД:', data.markers.length);
         
-        // Очищаем старые маркеры
-        markersRef.current.forEach(marker => marker.remove());
-        markersRef.current = [];
+        // Импортируем улучшенную функцию для отображения маркеров
+        const { displayMarkers } = await import('./markerLogic/markerDisplayEnhanced.js');
+        const { validateMarkers } = await import('./markerLogic/markerDisplayEnhanced.js');
+        
+        // Валидируем маркеры перед отображением
+        const validMarkers = validateMarkers(data.markers);
+        console.log('✅ Валидных маркеров:', validMarkers.length);
         
         // Отображаем маркеры на карте
         if (mapInstance.current) {
-          data.markers.forEach(marker => {
-            // Создаем HTML-элемент для маркера с эмодзи 📍
-            const markerElement = document.createElement('div');
-            markerElement.innerHTML = '📍';
-            markerElement.style.fontSize = '24px';
-            markerElement.style.cursor = 'pointer';
-            markerElement.style.userSelect = 'none';
-            markerElement.style.pointerEvents = 'auto';
-            
-            const mapMarker = new maplibregl.Marker({
-              element: markerElement,
-              anchor: 'bottom',
-              offset: [0, -12]
-            })
-              .setLngLat([marker.x, marker.y])
-              .setPopup(new maplibregl.Popup().setText(`Маркер #${marker.id}`))
-              .addTo(mapInstance.current);
-            
-            markersRef.current.push(mapMarker);
-          });
+          displayMarkers(mapInstance.current, validMarkers, markersRef);
         }
+        
+        // Обновляем состояние маркеров
+        setMarkers(validMarkers);
       }
     } catch (error) {
       console.error('❌ Ошибка загрузки маркеров:', error);
