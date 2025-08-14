@@ -1,11 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import maplibregl from "maplibre-gl";
-import { useMapInitialization } from "./useMapInitialization";
-import { useZoneManagement } from "./zoneLogic/useZoneManagement";
-import { useDrawingHandlers } from "./zoneLogic/useDrawingHandlers";
-import { useDeleteHandlers } from "./zoneLogic/useDeleteHandlers";
-import { useSaveZones } from "./zoneLogic/useSaveHandlers";
-import { useMarkerHandlers } from "./markerLogic/useMarkerHandlers";
+import { useMapInitialization } from "./logic/useMapInitialization";
+import { useZoneManagement } from "./logic/zoneLogic/useZoneManagement";
+import { useDrawingHandlers } from "./logic/zoneLogic/useDrawingHandlers";
+import { useDeleteHandlers } from "./logic/zoneLogic/useDeleteHandlers";
+import { useSaveZones } from "./logic/zoneLogic/useSaveHandlers";
+import { useMarkerHandlers } from "./logic/markerLogic/useMarkerHandlers";
 
 export function useMapAdminLogic() {
   const mapContainer = useRef(null);
