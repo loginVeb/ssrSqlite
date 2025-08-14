@@ -1,6 +1,9 @@
+// Функции файла useMapAdminLogic.js:
+// Основное назначение: Главный хук для координации всех компонентов карты в админ-панели.
+
 import { useRef, useState, useEffect } from "react";
 import maplibregl from "maplibre-gl";
-import { useMapInitialization } from "./useMapInitialization";
+import { useMapInitialization } from "./mapInitialization";
 import { useZoneManagement } from "./zoneLogic/useZoneManagement";
 import { useDrawingHandlers } from "./zoneLogic/useDrawingHandlers";
 import { useDeleteHandlers } from "./zoneLogic/useDeleteHandlers";
