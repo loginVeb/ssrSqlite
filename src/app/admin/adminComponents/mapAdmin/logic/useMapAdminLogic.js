@@ -1,12 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import maplibregl from "maplibre-gl";
 import { useMapInitialization } from "./useMapInitialization";
-import { useZoneManagement } from "./useZoneManagement";
-import { useDrawingHandlers } from "./useDrawingHandlers";
-import { useDeleteHandlers } from "./useDeleteHandlers";
-import { useSaveZones } from "./useSaveHandlers";
-import { useMarkerHandlers } from "./useMarkerHandlers";
-import { useMarkerDisplay } from "./useMarkerDisplay";
+import { useZoneManagement } from "./zoneLogic/useZoneManagement";
+import { useDrawingHandlers } from "./zoneLogic/useDrawingHandlers";
+import { useDeleteHandlers } from "./zoneLogic/useDeleteHandlers";
+import { useSaveZones } from "./zoneLogic/useSaveHandlers";
+import { useMarkerHandlers } from "./markerLogic/useMarkerHandlers";
 
 export function useMapAdminLogic() {
   const mapContainer = useRef(null);
@@ -15,6 +14,7 @@ export function useMapAdminLogic() {
   const [zones, setZones] = useState([]);
   const [isAddingMarkers, setIsAddingMarkers] = useState(false);
   const [markers, setMarkers] = useState([]);
+  const markersRef = useRef([]);
 
   // Загрузка маркеров из БД
   const loadMarkers = async () => {
@@ -24,20 +24,24 @@ export function useMapAdminLogic() {
       
       if (data.success && data.markers) {
         console.log('✅ Загружено маркеров из БД:', data.markers.length);
-        data.markers.forEach(marker => {
-          console.log('Координаты маркера:', marker.x, marker.y); // Логирование координат
-        });
+        
+        // Очищаем старые маркеры
+        markersRef.current.forEach(marker => marker.remove());
+        markersRef.current = [];
         
         // Отображаем маркеры на карте
         if (mapInstance.current) {
           data.markers.forEach(marker => {
-            new maplibregl.Marker({ 
+            const mapMarker = new maplibregl.Marker({ 
               color: '#FF0000',
-              scale: 1.5
+              scale: 1.5,
+              zIndex: 1000
             })
               .setLngLat([marker.x, marker.y])
               .setPopup(new maplibregl.Popup().setText(`Маркер #${marker.id}`))
               .addTo(mapInstance.current);
+            
+            markersRef.current.push(mapMarker);
           });
         }
       }
@@ -64,8 +68,7 @@ export function useMapAdminLogic() {
     setZones
   );
 
-  const { markers: newMarkers } = useMarkerHandlers(mapInstance, isAddingMarkers);  
-  useMarkerDisplay(mapInstance, markers); // Передаем маркеры в useMarkerDisplay
+  const { markers: newMarkers } = useMarkerHandlers(mapInstance, isAddingMarkers, markersRef);
 
   // Загрузка маркеров при монтировании
   useEffect(() => {

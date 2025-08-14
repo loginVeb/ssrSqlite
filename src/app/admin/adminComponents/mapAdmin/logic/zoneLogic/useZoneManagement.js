@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { loadZonesFromDB } from './api';
+import { loadZonesFromDB } from '../api';
 
 export function useZoneManagement(drawInstance, zones, setZones) {
   // Загрузка зон из базы данных при инициализации

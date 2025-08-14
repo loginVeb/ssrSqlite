@@ -1,4 +1,4 @@
-import { deleteZoneFromDB } from './useApiCalls';
+import { deleteZoneFromDB } from '../api';
 
 export function useDeleteHandlers(mapInstance, drawInstance, zones, setZones) {
   // Функция для удаления зоны из базы данных

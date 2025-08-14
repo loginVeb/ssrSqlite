@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { saveZonesToDB } from './api';
+import { saveZonesToDB } from '../api';
 
 export function useSaveZones(drawInstance, zones, setZones) {
   const [isSaving, setIsSaving] = useState(false);
