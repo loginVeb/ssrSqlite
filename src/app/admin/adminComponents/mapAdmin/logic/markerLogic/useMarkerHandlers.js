@@ -35,11 +35,10 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers, markersRef) {
           console.log('✅ Маркер добавлен в БД:', result.marker);
           console.log('🎯 Создаю маркер на карте:', [result.marker.x, result.marker.y]);
 
-          // Создаем стандартный маркер с красным цветом
+          // Создаем стандартный маркер с точным позиционированием
           const newMarker = new maplibregl.Marker({
             color: '#FF0000',
-            anchor: 'bottom',
-            offset: [0, -8]
+            anchor: 'center'
           })
             .setLngLat([result.marker.x, result.marker.y])
             .setPopup(new maplibregl.Popup().setText(`Маркер #${result.marker.id}`))

@@ -66,8 +66,7 @@ export function displayMarkers(mapInstance, markers, markersRef) {
 
         const mapMarker = new maplibregl.Marker({
           element: markerElement,
-          anchor: 'bottom',
-          offset: [0, -12]
+          anchor: 'center'
         })
           .setLngLat([marker.x, marker.y])
           .setPopup(new maplibregl.Popup().setText(`Маркер #${marker.id}`))
@@ -110,8 +109,7 @@ export function addMarkerToMap(mapInstance, marker, markersRef) {
 
     const mapMarker = new maplibregl.Marker({
       element: markerElement,
-      anchor: 'bottom',
-      offset: [0, -12]
+      anchor: 'center'
     })
       .setLngLat([marker.x, marker.y])
       .setPopup(new maplibregl.Popup().setText(`Маркер #${marker.id}`))

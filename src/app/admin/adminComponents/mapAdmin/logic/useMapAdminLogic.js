@@ -69,7 +69,7 @@ export function useMapAdminLogic() {
 
   const { markers: newMarkers } = useMarkerHandlers(mapInstance, isAddingMarkers, markersRef);
 
-  // Загрузка маркеров при монтировании и при изменении состояния
+  // Загрузка маркеров при монтировании карты и обновление при добавлении новых
   useEffect(() => {
     if (mapInstance.current) {
       loadMarkers();
