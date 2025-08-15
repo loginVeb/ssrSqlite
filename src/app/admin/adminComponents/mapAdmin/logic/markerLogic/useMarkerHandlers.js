@@ -71,7 +71,7 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers, markersRef) {
     return () => {
       map.off('click', handleMapClick);
     };
-  }, [isAddingMarkers, markersRef]);
+  }, [isAddingMarkers, markersRef, mapInstance]);
 
   return { markers };
 }
