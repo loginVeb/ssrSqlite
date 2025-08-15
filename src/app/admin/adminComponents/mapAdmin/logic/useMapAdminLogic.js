@@ -98,7 +98,7 @@ export function useMapAdminLogic() {
       // Загружаем маркеры из базы данных
       loadMarkers();
     }
-  }, [mapInstance.current, isAddingMarkers]); // Перезапуск при изменении карты или режима маркеров
+  }, [isAddingMarkers]); // Убран mapInstance.current из зависимостей
 
   // Возвращаем все необходимые значения и функции для компонента
   return {

@@ -61,16 +61,17 @@ export function useMarkerHandlers(mapInstance, isAddingMarkers, markersRef) {
       }
     };
 
+    // Сохраняем текущее значение mapInstance в переменную
+    const map = mapInstance.current;
+    
     // Добавляем обработчик клика
-    mapInstance.current.on('click', handleMapClick);
+    map.on('click', handleMapClick);
 
     // Очистка
     return () => {
-      if (mapInstance.current) {
-        mapInstance.current.off('click', handleMapClick);
-      }
+      map.off('click', handleMapClick);
     };
-  }, [mapInstance, isAddingMarkers]);
+  }, [isAddingMarkers, markersRef]);
 
   return { markers };
 }
