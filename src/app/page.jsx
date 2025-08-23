@@ -48,7 +48,7 @@ export default async function Home({ searchParams }) {
 
 // bash deploy_ssrSqlite.sh
 // npm run dev
-
+// npm run build
 
 // git add ./
 // git commit -am '
