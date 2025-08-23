@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -12,21 +9,21 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  nickname String  @unique
+  id       String @id @default(cuid())
+  nickname String @unique
   password String
 }
 
 model map_zone {
   id        Int      @id @default(autoincrement())
   name      String?
-  geojson   String   // Поле для хранения GeoJSON геометрии зоны
+  geojson   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model marker_in_the_zone {
-  id          Int     @id @default(autoincrement())
+  id          Int   @id @default(autoincrement())
   x           Float
   y           Float
   map_zone_id Int?
