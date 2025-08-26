@@ -19,20 +19,17 @@ ssh "$REMOTE_USER@$REMOTE_HOST" "rm -rf $REMOTE_PATH/.next"
 
 echo "Синхронизация файлов с сервером..."
 scp -r "$LOCAL_PROJECT_PATH/.next" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-# Исключаем папку imgpwa из public, чтобы не перезаписывать её на сервере
-rsync -av --exclude='imgpwa/***' --exclude='imgpwa' "$LOCAL_PROJECT_PATH/public" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/public"
+# Исключения для папки imgpwa удалены
+rsync -av "$LOCAL_PROJECT_PATH/public" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/public"
 # Исключаем локальную базу данных из деплоя
 rsync -av --exclude='var/www/db/dev.db' --exclude='var/www/db/' "$LOCAL_PROJECT_PATH/prisma" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/prisma"
 scp "$LOCAL_PROJECT_PATH/package.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
 scp "$LOCAL_PROJECT_PATH/package-lock.json" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
-scp "$LOCAL_PROJECT_PATH/.env" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
 scp "$LOCAL_PROJECT_PATH/ecosystem.config.js" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
 
 echo "Установка зависимостей на сервере..."
 ssh "$REMOTE_USER@$REMOTE_HOST" "cd $REMOTE_PATH && npm install --legacy-peer-deps"
 
-echo "Генерация Prisma Client на сервере..."
-ssh "$REMOTE_USER@$REMOTE_HOST" "cd $REMOTE_PATH && npx prisma generate"
 
 echo "Перезапуск pm2 процесса на сервере с использованием ecosystem.config.js..."
 ssh "$REMOTE_USER@$REMOTE_HOST" "pm2 delete $PM2_PROCESS_NAME || true; pm2 start $REMOTE_PATH/ecosystem.config.js --only $PM2_PROCESS_NAME"

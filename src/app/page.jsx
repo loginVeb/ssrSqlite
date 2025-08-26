@@ -1,18 +1,18 @@
-import styles from "./page.module.css";
-import Login from "./components/auth/login/login";
-import Registration from "./components/auth/registration/registration";
-import InstallClientPwa from "./components/pwa/installClientPwa";
+import styles from "./page.module.css"; // Импорт CSS-стилей для главной страницы из файла page.module.css
+import Login from "./components/auth/login/login"; // Импорт компонента формы входа (логина)
+import Registration from "./components/auth/registration/registration"; // Импорт компонента формы регистрации
+import InstallClientPwa from "./components/pwa/installClientPwa"; // Импорт компонента для установки PWA (Progressive Web App)
 
 // Главная страница с формой логина или регистрации, принимает searchParams и передает в соответствующий компонент
-export default async function Home({ searchParams }) {
-  const params = await searchParams;
-  const mode = params?.mode || "login";
+export default async function Home({ searchParams }) { // Асинхронная функция компонента главной страницы, принимающая параметры поиска
+  const params = await searchParams; // Ожидание получения параметров поиска из URL
+  const mode = params?.mode || "login"; // Определение режима работы: логин или регистрация (по умолчанию - логин)
 
-  return (
-    <main className={`${styles.main}`}>
-      <InstallClientPwa styles={styles} />
-      {mode === "login" && <Login searchParams={params} />}
-      {mode === "registration" && <Registration searchParams={params} />}
+  return ( // Возврат JSX разметки компонента
+    <main className={`${styles.main}`}> {/* Основной контейнер с применением стилей из CSS-модуля */}
+      <InstallClientPwa styles={styles} /> {/* Компонент для установки PWA приложения */}
+      {mode === "login" && <Login searchParams={params} />} {/* Условный рендеринг: если режим 'login', отображаем компонент логина */}
+      {mode === "registration" && <Registration searchParams={params} />} {/* Условный рендеринг: если режим 'registration', отображаем компонент регистрации */}
     </main>
   );
 }
@@ -39,7 +39,7 @@ export default async function Home({ searchParams }) {
 // насколько это возможно, обойтись без них для решения задачи. Так и ты предлагай в своих рекомендациях 
 // и планах вместо API route предлагай server action. Не нужно предлагать никаких хуков и use client 
 
-// буду делать всё постепено не спеши делать и домысливать сам делай  толь то что говорю не больше е так удобно  комитеть маленькие рабочие шаги
+// буду делать всё постепено не спеши делать и домысливать сам, делай  толь то что говорю не больше так удобно  комитеть маленькие рабочие шаги
 
 // shift+alt+t перевод выделеной строки на русский
 //contr+1 скриншот
@@ -48,7 +48,7 @@ export default async function Home({ searchParams }) {
 
 // bash deploy_ssrSqlite.sh
 // npm run dev
-
+// npm run build && npm run start
 
 // git add ./
 // git commit -am '
