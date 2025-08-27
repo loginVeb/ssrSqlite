@@ -3,6 +3,8 @@
 
 // Импорт необходимых хуков из React
 import { useState, useEffect } from "react";
+// Импорт функции для сохранения зон в базе данных
+import { saveZonesToDB } from "../api";
 
 // Экспорт пользовательского хука useEditZoneLogic для управления редактированием зон
 // Принимает параметры:
@@ -42,6 +44,58 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
     setIsEditing(prev => !prev);
   };
 
+  // Функция для автоматического сохранения зон после редактирования
+  const autoSaveZones = async () => {
+    try {
+      if (!drawInstance.current) return;
+      
+      const updatedZones = drawInstance.current.getAll().features;
+      console.log('💾 Автоматическое сохранение зон после редактирования:', updatedZones.length);
+      
+      // Подготавливаем зоны для сохранения (аналогично useSaveHandlers)
+      const zonesToSave = updatedZones.map(feature => {
+        const zone = {
+          ...feature,
+          properties: {
+            ...feature.properties,
+            id: feature.properties?.id && feature.properties.id > 0 ? feature.properties.id : undefined
+          }
+        };
+        return zone;
+      });
+      
+      // Сохраняем зоны в базу данных
+      const result = await saveZonesToDB(zonesToSave);
+      
+      if (result.success && result.zones) {
+        console.log('✅ Зоны успешно сохранены после редактирования');
+        
+        // Обновляем локальное состояние с новыми ID
+        const updatedZonesWithIds = result.zones.map(zone => {
+          const parsedGeojson = JSON.parse(zone.geojson);
+          parsedGeojson.properties = {
+            ...parsedGeojson.properties,
+            id: zone.id
+          };
+          return parsedGeojson;
+        });
+        
+        setZones(updatedZonesWithIds);
+        
+        // Обновляем drawInstance с новыми ID
+        if (drawInstance.current && updatedZonesWithIds.length > 0) {
+          const geojson = {
+            type: "FeatureCollection",
+            features: updatedZonesWithIds
+          };
+          drawInstance.current.set(geojson);
+        }
+      }
+    } catch (error) {
+      console.error('❌ Ошибка автоматического сохранения зон:', error);
+    }
+  };
+
   // Эффект для обработки событий выбора и обновления зон при редактировании
   useEffect(() => {
     // Проверяем наличие инициализированной карты и инструмента рисования
@@ -68,11 +122,29 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
       
       // Логируем обновление зоны
       console.log('🔄 Зона обновлена:', e.features[0]?.properties?.id);
+      
+      // Автоматически сохраняем изменения после редактирования
+      setTimeout(() => {
+        // Проверяем, что инструмент рисования все еще доступен
+        if (drawInstance.current) {
+          autoSaveZones();
+        }
+      }, 1000); // Задержка для предотвращения частых сохранений
     };
 
-    // Подписываемся на события выбора и обновления
+    // Обработчик события завершения редактирования (возврат в режим выбора)
+    const handleModeChange = (e) => {
+      if (e.mode === 'simple_select' && isEditing) {
+        console.log('✅ Редактирование завершено, возврат в режим выбора');
+        // Автоматически сохраняем изменения при выходе из режима редактирования
+        autoSaveZones();
+      }
+    };
+
+    // Подписываемся на события выбора, обновления и изменения режима
     mapInstance.current.on("draw.selectionchange", handleSelection);
     mapInstance.current.on("draw.update", handleUpdate);
+    mapInstance.current.on("draw.modechange", handleModeChange);
 
     // Функция очистки: отписываемся от событий при размонтировании компонента
     return () => {
@@ -87,6 +159,7 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
   return {
     isEditing, // Текущее состояние режима редактирования
     toggleEditMode, // Функция для переключения режима редактирования
-    setIsEditing // Функция для прямого установления состояния редактирования
+    setIsEditing, // Функция для прямого установления состояния редактирования
+    autoSaveZones // Функция для автоматического сохранения зон
   };
 }
