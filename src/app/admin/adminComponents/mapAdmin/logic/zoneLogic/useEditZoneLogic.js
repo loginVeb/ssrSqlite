@@ -187,22 +187,26 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
       }
     };
 
+    // Сохраняем ссылки на текущие экземпляры для использования в cleanup функции
+    const currentMapInstance = mapInstance.current;
+    const currentDrawInstance = drawInstance.current;
+
     // Подписываемся на события выбора, обновления, перемещения вершин и изменения режима
-    mapInstance.current.on("draw.selectionchange", handleSelection);
-    mapInstance.current.on("draw.update", handleUpdate);
-    mapInstance.current.on("draw.vertex.drag", handleVertexDrag);
-    mapInstance.current.on("draw.modechange", handleModeChange);
+    currentMapInstance.on("draw.selectionchange", handleSelection);
+    currentMapInstance.on("draw.update", handleUpdate);
+    currentMapInstance.on("draw.vertex.drag", handleVertexDrag);
+    currentMapInstance.on("draw.modechange", handleModeChange);
 
     // Функция очистки: отписываемся от событий при размонтировании компонента
     return () => {
-      if (mapInstance.current) {
-        mapInstance.current.off("draw.selectionchange", handleSelection);
-        mapInstance.current.off("draw.update", handleUpdate);
-        mapInstance.current.off("draw.vertex.drag", handleVertexDrag);
-        mapInstance.current.off("draw.modechange", handleModeChange);
+      if (currentMapInstance) {
+        currentMapInstance.off("draw.selectionchange", handleSelection);
+        currentMapInstance.off("draw.update", handleUpdate);
+        currentMapInstance.off("draw.vertex.drag", handleVertexDrag);
+        currentMapInstance.off("draw.modechange", handleModeChange);
       }
     };
-  }, [mapInstance, drawInstance, setZones, isEditing]);
+  }, [mapInstance, drawInstance, setZones, isEditing, autoSaveZones]);
 
   // Возвращаем состояние и функции для управления редактированием
   return {
