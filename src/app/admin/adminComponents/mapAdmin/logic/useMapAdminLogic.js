@@ -103,12 +103,15 @@ export function useMapAdminLogic() {
   // Возвращаем все необходимые значения и функции для компонента
   return {
     mapContainer, // Ref контейнера карты
+    mapInstance, // Ref экземпляра карты
     handleSaveZones, // Функция сохранения зон
     isSaving, // Флаг процесса сохранения
     drawInstance, // Ref инструмента рисования
     handleDeleteZoneByClick, // Функция удаления зоны по клику
     isAddingMarkers, // Флаг режима добавления маркеров
     setIsAddingMarkers, // Функция переключения режима маркеров
-    markers // Массив всех маркеров
+    markers, // Массив всех маркеров
+    zones, // Массив всех зон
+    setZones // Функция обновления состояния зон
   };
 }
