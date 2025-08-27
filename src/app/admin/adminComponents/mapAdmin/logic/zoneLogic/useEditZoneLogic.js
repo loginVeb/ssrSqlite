@@ -1,5 +1,6 @@
 // Хук для управления редактированием зон на карте
 // Позволяет активировать режим редактирования и обрабатывать изменения геометрии зон
+// Включает функциональность растягивания зон за угловые точки
 
 // Импорт необходимых хуков из React
 import { useState, useEffect } from "react";
@@ -27,8 +28,28 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
       // Пользователь должен сначала выбрать зону для редактирования
       drawInstance.current.changeMode('simple_select');
       
+      // Настраиваем инструмент рисования для поддержки растягивания угловых точек
+      // Включаем возможность перемещения вершин полигонов
+      if (drawInstance.current.options) {
+        drawInstance.current.options = {
+          ...drawInstance.current.options,
+          displayControlsDefault: false,
+          userProperties: true,
+          modes: {
+            ...drawInstance.current.options.modes,
+            direct_select: {
+              ...drawInstance.current.options.modes?.direct_select,
+              // Разрешаем перемещение вершин для растягивания угловых точек
+              dragVertex: true,
+              dragFeature: true
+            }
+          }
+        };
+      }
+      
       // Логируем активацию режима редактирования
       console.log('✅ Режим редактирования зон активирован - выберите зону для редактирования');
+      console.log('📌 Теперь доступно растягивание зон за угловые точки');
     } else {
       // Деактивируем режим редактирования, возвращаемся в простой режим
       drawInstance.current.changeMode('simple_select');
@@ -113,6 +134,12 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
 
     // Обработчик события обновления геометрии при редактировании
     const handleUpdate = (e) => {
+      // Проверяем, является ли обновление результатом растягивания угловой точки
+      // При растягивании угловых точек в режиме direct_select создается событие update
+      const isCornerDrag = e.features && e.features.length > 0 && 
+                          e.features[0].properties && 
+                          e.features[0].properties.active === 'true';
+      
       // Получаем все текущие зоны из инструмента рисования
       const currentZones = drawInstance.current.getAll().features;
       
@@ -120,8 +147,13 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
       // Это синхронизирует состояние React с текущим состоянием на карте
       setZones(currentZones);
       
-      // Логируем обновление зоны
-      console.log('🔄 Зона обновлена:', e.features[0]?.properties?.id);
+      if (isCornerDrag) {
+        // Логируем растягивание угловой точки
+        console.log('🔲 Растягивание угловой точки зоны:', e.features[0]?.properties?.id);
+      } else {
+        // Логируем обычное обновление зоны
+        console.log('🔄 Зона обновлена:', e.features[0]?.properties?.id);
+      }
       
       // Автоматически сохраняем изменения после редактирования
       setTimeout(() => {
@@ -130,6 +162,20 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
           autoSaveZones();
         }
       }, 1000); // Задержка для предотвращения частых сохранений
+    };
+
+    // Обработчик события перемещения вершин (растягивания угловых точек)
+    const handleVertexDrag = (e) => {
+      // Это событие срабатывает при перемещении вершин полигонов
+      if (e.features && e.features.length > 0) {
+        console.log('📌 Перемещение вершины зоны:', e.features[0]?.properties?.id);
+        
+        // Получаем все текущие зоны из инструмента рисования
+        const currentZones = drawInstance.current.getAll().features;
+        
+        // Обновляем состояние зон в React
+        setZones(currentZones);
+      }
     };
 
     // Обработчик события завершения редактирования (возврат в режим выбора)
@@ -141,9 +187,10 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
       }
     };
 
-    // Подписываемся на события выбора, обновления и изменения режима
+    // Подписываемся на события выбора, обновления, перемещения вершин и изменения режима
     mapInstance.current.on("draw.selectionchange", handleSelection);
     mapInstance.current.on("draw.update", handleUpdate);
+    mapInstance.current.on("draw.vertex.drag", handleVertexDrag);
     mapInstance.current.on("draw.modechange", handleModeChange);
 
     // Функция очистки: отписываемся от событий при размонтировании компонента
@@ -151,6 +198,8 @@ export function useEditZoneLogic(mapInstance, drawInstance, zones, setZones) {
       if (mapInstance.current) {
         mapInstance.current.off("draw.selectionchange", handleSelection);
         mapInstance.current.off("draw.update", handleUpdate);
+        mapInstance.current.off("draw.vertex.drag", handleVertexDrag);
+        mapInstance.current.off("draw.modechange", handleModeChange);
       }
     };
   }, [mapInstance, drawInstance, setZones, isEditing]);

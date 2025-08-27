@@ -158,6 +158,72 @@ export function useMapInitialization(mapContainer, mapInstance, drawInstance) {
             "circle-stroke-width": 3,
             "circle-stroke-color": "#ffffff"
           }
+        },
+        // Стили для точек редактирования (вершин полигонов)
+        {
+          id: "gl-draw-polygon-and-line-vertex-active",
+          type: "circle",
+          filter: [
+            "all",
+            ["==", "meta", "vertex"],
+            ["==", "$type", "Point"],
+            ["!=", "mode", "static"]
+          ],
+          paint: {
+            "circle-radius": 5,
+            "circle-color": "#ff0000",
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#ffffff"
+          }
+        },
+        {
+          id: "gl-draw-polygon-and-line-vertex-inactive",
+          type: "circle",
+          filter: [
+            "all",
+            ["==", "meta", "vertex"],
+            ["==", "$type", "Point"],
+            ["==", "mode", "static"]
+          ],
+          paint: {
+            "circle-radius": 3,
+            "circle-color": "#ff0000",
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "#ffffff"
+          }
+        },
+        // Стили для точек вставки (midpoints)
+        {
+          id: "gl-draw-polygon-and-line-midpoint-active",
+          type: "circle",
+          filter: [
+            "all",
+            ["==", "meta", "midpoint"],
+            ["==", "$type", "Point"],
+            ["!=", "mode", "static"]
+          ],
+          paint: {
+            "circle-radius": 4,
+            "circle-color": "#00ffff",
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#ffffff"
+          }
+        },
+        {
+          id: "gl-draw-polygon-and-line-midpoint-inactive",
+          type: "circle",
+          filter: [
+            "all",
+            ["==", "meta", "midpoint"],
+            ["==", "$type", "Point"],
+            ["==", "mode", "static"]
+          ],
+          paint: {
+            "circle-radius": 2,
+            "circle-color": "#00ffff",
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "#ffffff"
+          }
         }
       ]
     });
